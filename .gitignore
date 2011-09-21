@@ -3,3 +3,17 @@
 /lib
 /test-result
 /logs
+target
+.settings
+.classpath
+.project
+.checkstyle
+.springBeans
+velocity.log
+.DS_Store
+bin
+query-cache
+*.releaseBackup
+release.properties
+*.log
+
