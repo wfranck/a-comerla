@@ -1,0 +1,36 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.show.title', type.modelName) /}
+
+<div id="crudShow" class="${type.name}">
+
+    <h2 id="crudShowTitle">&{'crud.show.title', type.modelName}</h2>
+
+    <div class="objectForm">
+    #{form action:@save(object._key()), enctype:'multipart/form-data'}
+        #{crud.form}
+        #{crud.custom 'images'}
+        <div >
+            <label for="images">&('images')')</label>
+            <a href="@{ImageRestaurantController.blank}?object.restaurant.id=${object.id}">Add image</a>
+            #{list items:models.ImageRestaurant.findAll(), as:'image'}
+               <img src="@{Restaurants.getPicture(image.id)}" />
+               <a href="@{Restaurants.deletePicture(image.id)}">Delete</a>
+            #{/list}
+        </div>
+        #{/crud.custom}
+        #{/crud.form}
+        
+        
+        <p class="crudButtons">
+            <input type="submit" name="_saveAndGoToImage" value="&{'save.image', type.modelName}" />
+        </p>
+    #{/form}
+    </div>
+
+    #{form @delete(object._key())}
+        <p class="crudDelete">
+            <input type="submit" value="&{'crud.delete', type.modelName}" />
+        </p>
+    #{/form}
+
+</div>
