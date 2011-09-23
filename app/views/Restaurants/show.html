@@ -10,7 +10,7 @@
         #{crud.form}
         #{crud.custom 'images'}
         <div >
-            <label for="images">&('images')</label>
+            <label for="images">&{'images'}</label>
             <a href="@{ImageRestaurantController.blank}?object.restaurant.id=${object.id}">Add image</a>
             #{list items:models.ImageRestaurant.findAll(), as:'image'}
                <img src="@{Restaurants.getPicture(image.id)}" />

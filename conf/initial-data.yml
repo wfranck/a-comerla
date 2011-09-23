@@ -1,0 +1,12 @@
+Restaurant(lasCabras):
+    name: Las cabras
+    telephone: 4888-8858
+
+Restaurant(laCeleste):
+    name: La celeste
+    telephone: 4888-5655
+    
+Dish(chori):
+    description: Un Chori con fritas
+    price: 20
+    restaurant: laCeleste

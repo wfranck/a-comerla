@@ -1,5 +1,6 @@
 package controllers;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import models.Dish;
@@ -24,7 +25,9 @@ public class OrderController extends Controller {
         
     }
     
-    public static void createDish() {
-        
+    public static void createDish(String description, BigDecimal price, Long restaurant) {
+    	Restaurant r = Restaurant.findById(restaurant);
+    	Dish dish = new Dish(description,price,r).save();
+    	renderJSON(dish);
     }
 }

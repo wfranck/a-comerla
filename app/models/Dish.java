@@ -29,4 +29,15 @@ public class Dish extends Model {
     @JoinColumn(name = "RestaurantId", nullable = false)
     @Required
     public Restaurant restaurant;
+        
+    public Dish(String description, BigDecimal price, Restaurant restaurant) {
+		this.description = description;
+		this.price = price;
+		this.restaurant = restaurant;
+	}
+
+	@Override
+    public String toString() {
+    	return  String.format("%s | $ %s",description,price);
+    }
 }

@@ -20,18 +20,32 @@
 	#{field 'dish'}
     <p>
       <label>&{field.name}</label>
-      #{select '${field.name}', items:dishes, valueProperty:'id', labelProperty:'description', id:'${field.id}' /}
+      #{select '${field.name}', items:dishes, valueProperty:'id', id:'${field.id}' /}
     </p>
     #{/}
    
 #{/form}
-#{form @OrderController.createDish() , id:'creationDish' }
-#{field 'dish'}
-    <p>
-	  <label>&{field.name}</label>
-	  <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="${field.errorClass}">
+
+<div id="newDish">
+    <span>
+	  <label>Name:</label>
+	  <input type="text" id="dishDescription" name="dishName">
 	  <span class="error">${field.error}</span>
-	</p>
-    #{/}
+	</span>
     
-#{/form}
+    <span>
+	  <label>Price:</label>
+	  <input type="text" id="dishPrice" name="dishPrice">
+	  <span class="error">${field.error}</span>
+	</span>
+    
+    <input id="addDish" type="button" value="add"/>
+</div>
+
+<script type="text/javascript">
+	$("#addDish").click(function(){
+		var dishDescription=$("#dishDescription").val();
+		var dishPrice=$("#dishPrice").val();
+		$.post("@{OrderController.createDish()}",{description:dishDescription, price:dishPrice, restaurant:${r.id} });
+	});
+</script>
