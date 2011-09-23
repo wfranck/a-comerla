@@ -1,13 +1,19 @@
-import org.junit.*;
-import java.util.*;
-import play.test.*;
-import models.*;
+import models.IceCream;
+
+import org.junit.Test;
+
+import play.test.UnitTest;
 
 public class BasicTest extends UnitTest {
 
     @Test
     public void aVeryImportantThingToTest() {
-        assertEquals(2, 1 + 1);
+        String flavour = "chocolate";
+        IceCream ice = new IceCream(flavour);
+        ice.save();
+        IceCream iceCream = IceCream.find("byFlavour", flavour).first();
+        assertNotNull(iceCream);
+        assertEquals(ice, iceCream);
     }
 
 }

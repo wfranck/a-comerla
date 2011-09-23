@@ -3,5 +3,9 @@
 require:
     - play
     - play -> crud
-    - play -> mockito
+    - play -> mockito 0.1
+    - play -> maven head
+    - play -> spring 1.0.2
+    - play -> paginate head
+   
 
