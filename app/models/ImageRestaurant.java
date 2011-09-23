@@ -16,5 +16,10 @@ public class ImageRestaurant extends Model {
     @ManyToOne
     @JoinColumn(name = "RestaurantId", nullable = false)
     public Restaurant restaurant;
+    
+    @Override
+    public String toString() {
+        return "Image for " + restaurant;
+    }
 
 }

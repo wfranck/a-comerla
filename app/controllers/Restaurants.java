@@ -6,6 +6,9 @@ import models.ImageRestaurant;
 
 public class Restaurants extends CRUD {
     
+    public static void addImage() {
+        redirect("ImageRestaurantController.blank");
+    }
     
     public static void getPicture(final Long id) {
         ImageRestaurant img =  ImageRestaurant.findById(id);

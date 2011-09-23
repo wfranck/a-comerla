@@ -9,7 +9,9 @@ GET     /crud/index                             Application.adminHome
 *      /admin                                   module:crud
 GET   /restaurants/get-picture/{id}             Restaurants.getPicture
 GET   /restaurants/delete-picture/{id}             Restaurants.deletePicture
-
+GET   /restaurants/add-picture                   Restaurants.addPicture
+GET  /order/new                                  OrderController.newOrder
+GET  /order/new/{id}                                  OrderController.newOrderWithRestaurant
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

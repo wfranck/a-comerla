@@ -3,3 +3,12 @@
 #
 
 save.image=Save and add image
+images=Images
+telephone=Telephone
+image=Image
+restaurant=Restaurant
+name=Name
+description=Description
+price=Price
+restaurant=Restaurant
+create.order.restaurant=Create order for %s

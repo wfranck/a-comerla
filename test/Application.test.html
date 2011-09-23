@@ -1,7 +1,17 @@
 *{ You can use plain selenium command using the selenium tag }*
+#{fixture delete:'all', load:'data.yml' /}
 
 #{selenium}
     // Open the home page, and check that no error occured
     open('/')
     assertNotTitle('Application error')
+#{/selenium}
+
+#{selenium}
+    // Open the home page, and check that no error occured
+    open('/order/new')
+    waitForPageToLoad(10000)
+    assertNotTitle('Application error')
+    verifyText('//li[1]','Las cabasdfasdfras')
+    verifyText('//li[2]','La celeste')
 #{/selenium}

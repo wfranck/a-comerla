@@ -1,0 +1,11 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h1>Crea tu orden</h1>
+
+<ul>
+#{paginate.list items:restaurants, as:'restaurant'} 
+<li><a href="@{OrderController.newOrderStep2(restaurant.id)}">${restaurant.name}</a></li>
+#{/paginate.list}
+</ul> 
+#{paginate.controls items:paginator /} 

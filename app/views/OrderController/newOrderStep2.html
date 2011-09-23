@@ -1,0 +1,37 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h1>Crea tu orden: Paso 2</h1>
+
+#{form @OrderController.create() , id:'creationForm' }
+   
+   <input type="hidden" id="restaurant" name="restaurant" value="${r.id}">
+   #{list items:r.images, as:'image'}
+   <img src="@{Restaurants.getPicture(image.id)}" />
+    #{/list}
+   #{field 'date'}
+	<p>
+	  <label>&{field.name}</label>
+	  <input type="time" id="${field.id}" name="${field.name}" value="${field.value}" class="${field.errorClass}">
+	  <span class="error">${field.error}</span>
+	</p>
+	#{/}
+	
+	#{field 'dish'}
+    <p>
+      <label>&{field.name}</label>
+      #{select '${field.name}', items:dishes, valueProperty:'id', labelProperty:'description', id:'${field.id}' /}
+    </p>
+    #{/}
+   
+#{/form}
+#{form @OrderController.createDish() , id:'creationDish' }
+#{field 'dish'}
+    <p>
+	  <label>&{field.name}</label>
+	  <input type="text" id="${field.id}" name="${field.name}" value="${field.value}" class="${field.errorClass}">
+	  <span class="error">${field.error}</span>
+	</p>
+    #{/}
+    
+#{/form}
