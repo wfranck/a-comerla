@@ -5,7 +5,7 @@
 
 #{form @OrderController.create() , id:'creationForm' }
    
-   <input type="hidden" id="restaurant" name="restaurant" value="${r.id}">
+   <input type="hidden" class="restaurant" name="restaurant" value="${r.id}">
    #{list items:r.images, as:'image'}
    <img src="@{Restaurants.getPicture(image.id)}" />
     #{/list}
@@ -29,15 +29,23 @@
 <div id="newDish">
     <span>
        <label>Name:</label>
-       <input type="text" id="dishDescription" name="dishName">
+       <input type="text" class="description" name="dishName">
        <span class="error">${field.error}</span>
      </span>
     
     <span>
        <label>Price:</label>
-       <input type="text" id="dishPrice" name="dishPrice">
+       <input type="text" class="price" name="dishPrice">
        <span class="error">${field.error}</span>
      </span>
     
-    <input id="addDish" type="button" value="add"/>
+    <input class="addDish" type="button" value="add"/>
 </div>
+
+<script>
+    var createDish = #{jsAction @OrderController.createDish(':description', ':price', ':restaurant') /}
+</script>
+
+#{set 'moreScripts'}
+    #{script 'step2.js'/}
+#{/set}

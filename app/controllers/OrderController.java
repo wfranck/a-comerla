@@ -7,6 +7,7 @@ import models.Dish;
 import models.Restaurant;
 import play.modules.paginate.ModelPaginator;
 import play.mvc.Controller;
+import play.mvc.Http.StatusCode;
 
 public class OrderController extends Controller {
 
@@ -27,7 +28,11 @@ public class OrderController extends Controller {
 
     public static void createDish(final String description, final BigDecimal price, final Long restaurant) {
     	final Restaurant r = Restaurant.findById(restaurant);
-    	final Dish dish = new Dish(description,price,r).save();
-    	renderJSON(dish);
+    	if(new Dish(description,price,r).validateAndCreate()){
+    	    response.status = StatusCode.CREATED;
+    	}
+    	else{
+    	    response.status = StatusCode.BAD_REQUEST;
+    	}
     }
 }
