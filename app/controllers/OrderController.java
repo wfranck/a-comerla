@@ -1,10 +1,16 @@
 package controllers;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
+import models.DeliveryOrder;
 import models.Dish;
+import models.DishOrder;
+import models.DueDateExpirationPolicy;
 import models.Restaurant;
+import models.User;
+import play.data.validation.Valid;
 import play.modules.paginate.ModelPaginator;
 import play.mvc.Controller;
 
@@ -21,11 +27,26 @@ public class OrderController extends Controller {
         render(r, dishes);
     }
     
-    public static void create(){
+    
+    
+    public static void create(@Valid final Restaurant restaurant, @Valid final Dish dish, final Date date){
+        //TODO: User is mocked
+        User user =  User.all().first();
+        //TODO: Now we only use Due Date
+        DeliveryOrder order = new DeliveryOrder(new DueDateExpirationPolicy(date), restaurant);
+        DishOrder dishOrder = new DishOrder(user, dish);
+        order.addDishOrder(dishOrder);
+        validation.valid(order);
+        if (validation.hasErrors()) {
+            validation.keep();
+            flash.keep();
+            newOrderStep2(restaurant.getId());
+        }
+        redirect("Application.index");
         
     }
     
-    public static void createDish(String description, BigDecimal price, Long restaurant) {
+    public static void createDish(final String description, final BigDecimal price, final Long restaurant) {
     	Restaurant r = Restaurant.findById(restaurant);
     	Dish dish = new Dish(description,price,r).save();
     	renderJSON(dish);

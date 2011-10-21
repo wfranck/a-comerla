@@ -10,3 +10,7 @@ Dish(chori):
     description: Un Chori con fritas
     price: 20
     restaurant: laCeleste
+
+User(gonto):
+   mail: gonto@gonto.com
+   username: gonto

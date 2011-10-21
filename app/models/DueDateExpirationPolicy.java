@@ -8,6 +8,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import play.data.validation.InFuture;
+import play.data.validation.Required;
 
 @Entity
 public class DueDateExpirationPolicy extends ExpirationPolicy {
@@ -15,6 +16,7 @@ public class DueDateExpirationPolicy extends ExpirationPolicy {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ExpirationDate" , nullable = false)
     @InFuture
+    @Required
     public Date expirationDate;
     
     public DueDateExpirationPolicy(final Date expirationDate) {

@@ -1,28 +1,38 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
+#{ifErrors}
+   <h1>Oops...</h1>
+ 
+   #{errors}
+       <li>${error}</li>
+   #{/errors}
+#{/ifErrors}
+ 
+
 <h1>Crea tu orden: Paso 2</h1>
 
 #{form @OrderController.create() , id:'creationForm' }
    
-   <input type="hidden" id="restaurant" name="restaurant" value="${r.id}">
+   <input type="hidden" id="restaurant.id" name="restaurant.id" value="${r.id}">
    #{list items:r.images, as:'image'}
    <img src="@{Restaurants.getPicture(image.id)}" />
     #{/list}
-   #{field 'date'}
+   #{field 'order.expirationPolicy.expirationDate'}
 	<p>
-	  <label>&{field.name}</label>
-	  <input type="time" id="${field.id}" name="${field.name}" value="${field.value}" class="${field.errorClass}">
-	  <span class="error">${field.error}</span>
+	  <label>Date</label>
+	  <input type="time" id="date" name="date" value="date">
+	  <span class="error">${order.expirationPolicy.expirationDate}</span>
 	</p>
 	#{/}
 	
-	#{field 'dish'}
+	#{field 'dish.id'}
     <p>
-      <label>&{field.name}</label>
-      #{select '${field.name}', items:dishes, valueProperty:'id', id:'${field.id}' /}
+      <label>Date</label>
+      #{select field.name, items:dishes, valueProperty:'id', id: field.id /}
     </p>
     #{/}
+    <input type="submit" value="Crear plato" />
    
 #{/form}
 
