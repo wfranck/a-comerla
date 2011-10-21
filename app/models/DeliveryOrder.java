@@ -19,22 +19,24 @@ import play.db.jpa.Model;
 @Entity
 public class DeliveryOrder extends Model {
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ExpirationPolicyId", nullable = false)
     @Required
     @Valid
-    public ExpirationPolicy expirationPolicy;
+    public DueDateExpirationPolicy expirationPolicy;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     @MinSize(value = 1)
     @Valid
     private List<DishOrder> dishOrders = new ArrayList<DishOrder>();
+    
     @ManyToOne
     @JoinColumn(name = "RestaurantId")
     @Required
     @Valid
     public Restaurant restaurant;
     
-    public DeliveryOrder(final ExpirationPolicy policy, final Restaurant r) {
+    public DeliveryOrder(final DueDateExpirationPolicy policy, final Restaurant r) {
         restaurant = r;
         expirationPolicy = policy;
     }

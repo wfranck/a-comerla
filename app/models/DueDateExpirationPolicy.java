@@ -9,9 +9,10 @@ import javax.persistence.TemporalType;
 
 import play.data.validation.InFuture;
 import play.data.validation.Required;
+import play.db.jpa.Model;
 
 @Entity
-public class DueDateExpirationPolicy extends ExpirationPolicy {
+public class DueDateExpirationPolicy extends Model {
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ExpirationDate" , nullable = false)
@@ -23,7 +24,6 @@ public class DueDateExpirationPolicy extends ExpirationPolicy {
         this.expirationDate = expirationDate;
     }
 
-    @Override
     public boolean isExpired() {
         return new Date().compareTo(expirationDate) >= 0;
     }

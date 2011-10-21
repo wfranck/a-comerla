@@ -29,6 +29,19 @@ public class OrderController extends Controller {
         final List<Dish> dishes = Dish.find("byRestaurant", r).fetch();
         render(r, dishes);
     }
+    public static void list() {
+        ModelPaginator<DeliveryOrder> orders = 
+            new ModelPaginator<DeliveryOrder>(DeliveryOrder.class, "expirationPolicy.expirationDate >= ?", new Date());
+        orders.getPageCount();
+        render(orders);
+    }
+    
+    public static void show(final DeliveryOrder order) {
+        
+    }
+    
+    
+    
     public static void create(@Valid final Restaurant restaurant, @Valid final Dish dish, @As("dd/MM/yy HH:mm") final Date date) throws ParseException{
         //TODO: User is mocked
         final User user =  User.all().first();
@@ -42,6 +55,7 @@ public class OrderController extends Controller {
             flash.keep();
             newOrderStep2(restaurant.getId());
         }
+        order.validateAndCreate();
         redirect("Application.index");
 
     }
