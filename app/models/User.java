@@ -18,5 +18,5 @@ public class User extends Model {
         this.mail = mail;
         this.username = username;
     }
-
+    
 }

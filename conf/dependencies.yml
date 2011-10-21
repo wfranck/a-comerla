@@ -7,5 +7,6 @@ require:
     - play -> maven head
     - play -> spring 1.0.2
     - play -> paginate head
+    - play -> secure
    
 

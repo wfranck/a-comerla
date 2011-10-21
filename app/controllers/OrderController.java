@@ -16,9 +16,11 @@ import play.data.validation.Valid;
 import play.modules.paginate.ModelPaginator;
 import play.mvc.Controller;
 import play.mvc.Http.StatusCode;
+import play.mvc.With;
 import serializers.DishSerializer;
 import serializers.Serializer;
 
+@With(Secure.class)
 public class OrderController extends Controller {
 
     public static void newOrder() {
