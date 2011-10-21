@@ -1,4 +1,9 @@
 $(function(){
+    
+    /**
+     * Despues de creado un nuevo Dish, el post responde el json con el nuevo ID para el dish, y lo agregamos en el combo de dishes.
+     */
+    
     $(".addDish").click(function(){
         var description = $(".description").val();
         var price = $(".price").val();
@@ -8,13 +13,11 @@ $(function(){
             addOptionInCombo(data);
         })
         .error(function(){
-            alert("No se pudo cargar tu Alto Guiso");
+            var error = $(".errorOn-dishCreation").html();
+            alert(error);
         });
     });
     
-    /**
-     * After created a new Dish, a json is returned to add the new element to the combo
-     */
     function addOptionInCombo(dish){
         $('.dishes')
                 .append($('<option>', { value : dish.id })
