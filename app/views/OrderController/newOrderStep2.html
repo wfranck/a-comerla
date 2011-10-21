@@ -1,8 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 #{set 'moreScripts'}
-    #{script 'jQuery-datetimepicker.js' /}
-    #{script 'crear-pedido.js'/}
+    #{get 'moreScripts' /}
 #{/}
 
 #{messagesForJs/orderMessages /}
@@ -11,7 +10,7 @@
 
 #{form @OrderController.create() , id:'creationForm' }
    
-    #{add-order new:true, obj: r /}
+    #{add-order new:true, obj: r, dishes: dishes /}
     #{add-dish /}
     
 #{/form}

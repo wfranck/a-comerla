@@ -5,7 +5,7 @@
 
 <ul>
 #{paginate.list items:orders, as:'order'}
-<li>Orden para ${order.restaurant.name}. Si queres sumarte click <a href="@{OrderController.show(order.id)}">aqui</a> </li> 
+<li>Orden para ${order.restaurant.name} vence a las ${order.expirationPolicy.expirationDate}. Si queres sumarte click <a href="@{OrderController.show(order.id)}">aqui</a> </li> 
 #{/paginate.list}
 </ul> 
 #{paginate.controls items:paginator /} 

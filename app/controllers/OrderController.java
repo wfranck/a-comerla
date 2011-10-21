@@ -3,6 +3,7 @@ package controllers;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 import models.DeliveryOrder;
 import models.Dish;
@@ -27,7 +28,8 @@ public class OrderController extends Controller {
 
     public static void newOrderStep2(final Long id) {
         Restaurant r= Restaurant.findById(id);
-        render(r, Dish.findByRestaurant(r));
+        List<Restaurant> dishes = Dish.findByRestaurant(r);
+        render(r, dishes);
     }
     public static void list() {
         ModelPaginator<DeliveryOrder> orders = 
@@ -38,7 +40,21 @@ public class OrderController extends Controller {
     
     public static void show(final Long id) {
         DeliveryOrder order = DeliveryOrder.findById(id);
-        render(order);
+        List<Restaurant> dishes = Dish.findByRestaurant(order.restaurant);
+        render(order, dishes);
+    }
+    
+    public static void addNewDishOrder(final DeliveryOrder order, final Dish dish) {
+      //TODO: User is mocked
+        final User user =  User.all().first();
+        order.addDishOrder(new DishOrder(user, dish));
+        if (!order.validateAndSave()) {
+            validation.keep();
+            flash.keep();
+            show(order.id);
+        }
+        flash.success("Se guardo OK tu pedido", order);
+        list();
     }
     
     

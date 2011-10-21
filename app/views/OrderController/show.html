@@ -1,6 +1,8 @@
 #{extends 'main.html' /}
 #{set title:'Ver Pedido' /}
-
+#{set 'moreScripts'}
+    #{get 'moreScripts' /}
+#{/}
 <h1>Pedido para ${order.restaurant.name}</h1>
 
 #{if order.expirationPolicy.isExpired()}
@@ -8,6 +10,9 @@
 #{/if}
 #{else}
     <p>Este pedido vence a las ${order.expirationPolicy.expirationDate}</p>
-    
+    #{form @OrderController.addNewDishOrder() , id:'creationForm' }
+        #{add-order new:false, obj: order, , dishes: dishes /}
+        #{add-dish /}
+    #{/form}
 #{/else}
 

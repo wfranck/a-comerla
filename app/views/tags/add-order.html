@@ -1,3 +1,8 @@
+#{set 'moreScripts'}
+	#{script 'jQuery-datetimepicker.js' /}
+	#{script 'crear-pedido.js'/}
+#{/}
+
 %{
     if(_new) {
         r = _obj;
@@ -25,7 +30,7 @@
     #{field 'dish.id'}
     <p>
       <label>Plato</label>
-      #{select field.name, items:dishes, valueProperty:'id', id: field.id, class: 'dishes' /}
+      #{select field.name, items:_dishes, valueProperty:'id', id: field.id, class: 'dishes' /}
     </p>
     #{/}
     <input type="submit" value="Dar de alta pedido" />
