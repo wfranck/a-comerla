@@ -12,7 +12,7 @@
 
 #{form @OrderController.create() , id:'creationForm' }
    
-   <input type="hidden" id="restaurant.id" name="restaurant.id" value="${r.id}">
+   <input type="hidden" class="restaurant" name="restaurant.id" value="${r.id}">
    #{list items:r.images, as:'image'}
    <img src="@{Restaurants.getPicture(image.id)}" />
     #{/list}
