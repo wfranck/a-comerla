@@ -11,23 +11,23 @@ import play.mvc.Controller;
 public class OrderController extends Controller {
 
     public static void newOrder() {
-        ModelPaginator<Restaurant> restaurants = new ModelPaginator<Restaurant>(Restaurant.class);
+        final ModelPaginator<Restaurant> restaurants = new ModelPaginator<Restaurant>(Restaurant.class);
         render(restaurants);
     }
-    
+
     public static void newOrderStep2(final Long id) {
-        Restaurant r =  Restaurant.findById(id);
-        List<Dish> dishes = Dish.findAll();
+        final Restaurant r =  Restaurant.findById(id);
+        final List<Dish> dishes = Dish.find("byRestaurant", r).fetch();
         render(r, dishes);
     }
-    
+
     public static void create(){
-        
+
     }
-    
-    public static void createDish(String description, BigDecimal price, Long restaurant) {
-    	Restaurant r = Restaurant.findById(restaurant);
-    	Dish dish = new Dish(description,price,r).save();
+
+    public static void createDish(final String description, final BigDecimal price, final Long restaurant) {
+    	final Restaurant r = Restaurant.findById(restaurant);
+    	final Dish dish = new Dish(description,price,r).save();
     	renderJSON(dish);
     }
 }

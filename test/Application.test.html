@@ -12,6 +12,17 @@
     open('/order/new')
     waitForPageToLoad(10000)
     assertNotTitle('Application error')
-    verifyText('//li[1]','Las cabasdfasdfras')
+    verifyText('//li[1]','Las cabras')
     verifyText('//li[2]','La celeste')
+#{/selenium}
+
+
+#{selenium}
+    // Open the home page, and check that no error occured
+    open('/order/new')
+    waitForPageToLoad(10000)
+    assertNotTitle('Application error')
+    verifyText('//li[2]','La celeste')
+    clickAndWait link=La celeste
+    verifyText('//select//option[text()='Un Chori con fritas | $ 20.00']')
 #{/selenium}

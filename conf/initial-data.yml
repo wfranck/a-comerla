@@ -10,3 +10,8 @@ Dish(chori):
     description: Un Chori con fritas
     price: 20
     restaurant: laCeleste
+    
+Dish(rol):
+    description: Un  Rol
+    price: 10
+    restaurant: lasCabras
