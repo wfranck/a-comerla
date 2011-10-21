@@ -2,5 +2,17 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springsource.org/dtd/spring-beans-2.0.dtd">
 <beans>
     
+    <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+          <property name="url" value="ldap://url.to.ldap.server:389" />
+          <property name="userDn" value="uid=admin,ou=system" />
+          <property name="password" value="adminpassword" />
+          </bean>
+          <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
+            <constructor-arg ref="contextSource" />
+          </bean>
+          
+     <bean id="authenticator" class="authentication.LDAPAuthenticator">
+       <constructor-arg ref="ldapTemplate" />
+     </bean>
     
 </beans>
