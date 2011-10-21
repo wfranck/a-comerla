@@ -1,0 +1,13 @@
+#{extends 'main.html' /}
+#{set title:'Ver Pedido' /}
+
+<h1>Pedido para ${order.restaurant.name}</h1>
+
+#{if order.expirationPolicy.isExpired()}
+    <h2>La orden ha expirado, no podes realizar ningun pedido</h2>
+#{/if}
+#{else}
+    <p>Este pedido vence a las ${order.expirationPolicy.expirationDate}</p>
+    
+#{/else}
+

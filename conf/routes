@@ -13,7 +13,7 @@ GET   /restaurants/add-picture                   Restaurants.addPicture
 GET  /order/new                                  OrderController.newOrder
 GET  /order/new/{id}                                  OrderController.newOrderStep2
 GET /order/list                                       OrderController.list
-GET /order/show/id                                       OrderController.show
+GET /order/show/{id}                                       OrderController.show
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

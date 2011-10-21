@@ -36,8 +36,9 @@ public class OrderController extends Controller {
         render(orders);
     }
     
-    public static void show(final DeliveryOrder order) {
-        
+    public static void show(final Long id) {
+        DeliveryOrder order = DeliveryOrder.findById(id);
+        render(order);
     }
     
     
