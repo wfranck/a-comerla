@@ -20,6 +20,11 @@ $(function(){
                 .append($('<option>', { value : dish.id })
                 .text(dish.description + " | $ " + dish.price ));
     };
+	$('#date').datetimepicker({
+		dateFormat: 'dd/mm/yy',
+		timeFormat: 'hh:mm'
+	});
+    
     
 });    
 

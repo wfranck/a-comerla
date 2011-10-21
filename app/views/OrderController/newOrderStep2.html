@@ -2,57 +2,14 @@
 #{set title:'Home' /}
 #{set 'moreScripts'}
     #{script 'jQuery-datetimepicker.js' /}
-    #{script 'order-step-2.js' /}
+    #{script 'crear-pedido.js'/}
 #{/}
-
-
- 
-
 <h1>Crea tu orden: Paso 2</h1>
 
 #{form @OrderController.create() , id:'creationForm' }
    
-   <input type="hidden" class="restaurant" name="restaurant.id" value="${r.id}">
-   #{list items:r.images, as:'image'}
-   <img src="@{Restaurants.getPicture(image.id)}" />
-    #{/list}
-   #{field 'order.expirationPolicy.expirationDate'}
-	<p>
-	  <label>Date</label>
-	  <input type="text" id="date" name="date" value="" />
-	  <span class="error">${field.error}</span>
-	</p>
-	#{/}
-	#{field 'dish.id'}
-    <p>
-      <label>Date</label>
-      #{select field.name, items:dishes, valueProperty:'id', id: field.id, class: 'dishes' /}
-    </p>
-    #{/}
-    <input type="submit" value="Crear plato" />
-   
+    #{add-order new:true, obj: r /}
+    #{add-dish /}
+    
 #{/form}
-
-<div id="newDish">
-    <span>
-       <label>Name:</label>
-       <input type="text" class="description" name="dishName">
-       <span class="error">${field.error}</span>
-     </span>
-    
-    <span>
-       <label>Price:</label>
-       <input type="text" class="price" name="dishPrice">
-       <span class="error">${field.error}</span>
-     </span>
-    
-    <input class="addDish" type="button" value="add"/>
-</div>
-
-<script>
-    var createDish = #{jsAction @OrderController.createDish(':description', ':price', ':restaurant') /}
-</script>
-
-#{set 'moreScripts'}
-    #{script 'step2.js'/}
-#{/set}
+   

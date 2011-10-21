@@ -1,6 +1,7 @@
 package models;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +30,14 @@ public class Dish extends Model {
     @JoinColumn(name = "RestaurantId", nullable = false)
     @Required
     public Restaurant restaurant;
+    
+    public static List<Restaurant> findByRestaurant(final Restaurant r) {
+        return Dish.find("byRestaurant", r).fetch();
+    }
+    
+    public static List<Restaurant> findByRestaurant(final Long id) {
+        return findByRestaurant((Restaurant) Restaurant.findById(id));
+    }
 
     public Dish(final String description, final BigDecimal price, final Restaurant restaurant) {
 		this.description = description;

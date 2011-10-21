@@ -1,0 +1,32 @@
+%{
+    if(_new) {
+        r = _obj;
+    } else {
+        r= _obj.restaurant;
+    }
+}%
+<input type="hidden" class="restaurant" name="restaurant.id" value="${r.id}">
+#{if _new}
+    #{field 'order.expirationPolicy.expirationDate'}
+    <p>
+      <label>Date</label>
+      <input type="text" id="date" name="date" value="" />
+      <span class="error">${field.error}</span>
+    </p>
+    #{/}
+#{/if}
+#{else}
+    <input type="hidden" name="deliveryorder.id" value="${_obj.id}">
+#{/else}
+   #{list items:r.images, as:'image'}
+   <img src="@{Restaurants.getPicture(image.id)}" />
+    #{/list}
+   
+    #{field 'dish.id'}
+    <p>
+      <label>Plato</label>
+      #{select field.name, items:dishes, valueProperty:'id', id: field.id, class: 'dishes' /}
+    </p>
+    #{/}
+    <input type="submit" value="Dar de alta pedido" />
+    

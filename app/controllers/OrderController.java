@@ -3,7 +3,6 @@ package controllers;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.List;
 
 import models.DeliveryOrder;
 import models.Dish;
@@ -27,9 +26,8 @@ public class OrderController extends Controller {
     }
 
     public static void newOrderStep2(final Long id) {
-        final Restaurant r =  Restaurant.findById(id);
-        final List<Dish> dishes = Dish.find("byRestaurant", r).fetch();
-        render(r, dishes);
+        Restaurant r= Restaurant.findById(id);
+        render(r, Dish.findByRestaurant(r));
     }
     public static void list() {
         ModelPaginator<DeliveryOrder> orders = 
