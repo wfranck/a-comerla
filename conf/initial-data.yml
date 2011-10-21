@@ -11,6 +11,12 @@ Dish(chori):
     price: 20
     restaurant: laCeleste
 
+Dish(rol):
+    description: Un  Rol
+    price: 10
+    restaurant: lasCabras
+
 User(gonto):
    mail: gonto@gonto.com
    username: gonto
+    
