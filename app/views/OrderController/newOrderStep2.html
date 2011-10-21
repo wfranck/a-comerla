@@ -1,13 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
+#{set 'moreScripts'}
+    #{script 'jQuery-datetimepicker.js' /}
+    #{script 'order-step-2.js' /}
+#{/}
 
-#{ifErrors}
-   <h1>Oops...</h1>
- 
-   #{errors}
-       <li>${error}</li>
-   #{/errors}
-#{/ifErrors}
+
  
 
 <h1>Crea tu orden: Paso 2</h1>
@@ -21,8 +19,8 @@
    #{field 'order.expirationPolicy.expirationDate'}
 	<p>
 	  <label>Date</label>
-	  <input type="time" id="date" name="date" value="date">
-	  <span class="error">${order.expirationPolicy.expirationDate}</span>
+	  <input type="text" id="date" name="date" value="" />
+	  <span class="error">${field.error}</span>
 	</p>
 	#{/}
 	

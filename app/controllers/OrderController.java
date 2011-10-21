@@ -1,6 +1,7 @@
 package controllers;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import models.DishOrder;
 import models.DueDateExpirationPolicy;
 import models.Restaurant;
 import models.User;
+import play.data.binding.As;
 import play.data.validation.Valid;
 import play.modules.paginate.ModelPaginator;
 import play.mvc.Controller;
@@ -29,7 +31,7 @@ public class OrderController extends Controller {
     
     
     
-    public static void create(@Valid final Restaurant restaurant, @Valid final Dish dish, final Date date){
+    public static void create(@Valid final Restaurant restaurant, @Valid final Dish dish, @As("dd/MM/yy HH:mm") final Date date) throws ParseException{
         //TODO: User is mocked
         User user =  User.all().first();
         //TODO: Now we only use Due Date

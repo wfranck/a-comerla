@@ -10,7 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import play.data.validation.Min;
+import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
@@ -27,7 +27,7 @@ public class DishOrder extends Model {
             joinColumns = @JoinColumn(name = "DishOrderId"), 
             inverseJoinColumns = @JoinColumn(name = "DishId"))
     @Required
-    @Min(1)
+    @MinSize(1)
     private List<Dish> dishes;
     
     @ManyToOne
