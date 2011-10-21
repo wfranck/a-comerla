@@ -3,9 +3,10 @@
 <beans>
     
     <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
-          <property name="url" value="ldap://url.to.ldap.server:389" />
+          <property name="url" value="ldap://localhost:1389" />
           <property name="userDn" value="uid=admin,ou=system" />
-          <property name="password" value="adminpassword" />
+          <property name="base" value="dc=zauber,dc=com.ar" />
+          <property name="password" value="secret" />
           </bean>
           <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
             <constructor-arg ref="contextSource" />

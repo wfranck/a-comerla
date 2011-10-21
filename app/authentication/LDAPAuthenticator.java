@@ -30,7 +30,7 @@ public class LDAPAuthenticator {
 
     public boolean login(final String username, final String password){
         final AndFilter filter = new AndFilter();
-        filter.and(new EqualsFilter("objectclass", "person")).and(new EqualsFilter("cn", username));
+        filter.and(new EqualsFilter("objectclass", "person")).and(new EqualsFilter("uid", username));
 
         return this.ldapTemplate.authenticate(DistinguishedName.EMPTY_PATH, filter.toString(), password);
     }
