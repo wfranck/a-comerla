@@ -4,6 +4,9 @@
     #{script 'jQuery-datetimepicker.js' /}
     #{script 'crear-pedido.js'/}
 #{/}
+
+#{messagesForJs/orderMessages /}
+
 <h1>Crea tu orden: Paso 2</h1>
 
 #{form @OrderController.create() , id:'creationForm' }
