@@ -5,12 +5,17 @@ $(function(){
         var restaurant = $(".restaurant").val();
         
         $.post(createDish({description: description, price: price, restaurant: restaurant}), function(){
-            alert(":D");
+            addOptionInCombo();
         })
         .error(function(){
             alert("No se pudo cargar tu Alto Guiso");
         });
     });
+    
+    
+    function addOptionInCombo(){
+        alert(":D")
+    };
     
 });    
 
