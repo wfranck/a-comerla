@@ -16,6 +16,8 @@ import play.data.validation.Valid;
 import play.modules.paginate.ModelPaginator;
 import play.mvc.Controller;
 import play.mvc.Http.StatusCode;
+import serializers.DishSerializer;
+import serializers.Serializer;
 
 public class OrderController extends Controller {
 
@@ -61,10 +63,23 @@ public class OrderController extends Controller {
 
     }
 
+    /**
+     * Creates a new Dish
+     * @param description
+     * @param price
+     * @param restaurant
+     */
     public static void createDish(final String description, final BigDecimal price, final Long restaurant) {
+        final Serializer serializer = new DishSerializer();
+
     	final Restaurant r = Restaurant.findById(restaurant);
-    	if(new Dish(description,price,r).validateAndCreate()){
+    	final Dish dish = new Dish(description,price,r);
+
+    	if(validation.valid(dish).ok){
     	    response.status = StatusCode.CREATED;
+    	    r.save();
+
+    	    renderJSON(serializer.serialize(dish));
     	}
     	else{
     	    response.status = StatusCode.BAD_REQUEST;

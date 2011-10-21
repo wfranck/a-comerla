@@ -26,7 +26,7 @@
 	#{field 'dish.id'}
     <p>
       <label>Date</label>
-      #{select field.name, items:dishes, valueProperty:'id', id: field.id /}
+      #{select field.name, items:dishes, valueProperty:'id', id: field.id, class: 'dishes' /}
     </p>
     #{/}
     <input type="submit" value="Crear plato" />

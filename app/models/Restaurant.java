@@ -22,14 +22,14 @@ public class Restaurant extends Model {
     @Required
     @MaxSize(value = ModelConstants.RESTAURANT_NAME_LENGTH)
     public String name;
-    
+
     @Column(name = "Telephone", length = ModelConstants.TELEPHONE_LENGTH)
     @Required
     @MaxSize(value = ModelConstants.TELEPHONE_LENGTH)
     @Phone
     public String telephone;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     @Exclude
     public List<Dish> dishes;
 
@@ -38,7 +38,7 @@ public class Restaurant extends Model {
 
     /**
      * Creates the Restaurant.
-     * 
+     *
      * @param name
      * @param telephone
      * @param dishes
@@ -49,12 +49,12 @@ public class Restaurant extends Model {
         this.name = name;
         this.telephone = telephone;
         this.images = Arrays.asList(images);
-        dishes = new ArrayList<Dish>();
+        this.dishes = new ArrayList<Dish>();
     }
-    
+
     @Override
     public String toString() {
-        return name;
+        return this.name;
     }
 
 }
