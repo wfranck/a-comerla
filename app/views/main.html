@@ -4,6 +4,14 @@
     <head>
         <title>#{get 'title' /}</title>
         <meta charset="${_response_encoding}">
+        
+        #{greenscript.js "jquery-1.5.2.min"/}
+        #{greenscript.js "jquery-ui-1.8.16.custom.min"/}
+       
+        #{greenscript.css "main", output:'all'/}
+        #{greenscript.js output: 'all'/}
+       
+        <!-- 
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/jquery-ui-1.8.16.custom.css'}">
         #{get 'moreStyles' /}
@@ -13,6 +21,8 @@
         <script src="@{'/public/javascripts/jquery-ui-1.8.16.custom.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
         
         #{get 'moreScripts' /}
+        
+         -->
     </head>
     <body>
         #{doLayout /}
