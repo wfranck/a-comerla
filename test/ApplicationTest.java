@@ -9,7 +9,7 @@ public class ApplicationTest extends FunctionalTest {
     public void testThatIndexPageWorks() {
         Response response = GET("/");
         assertStatus(302, response); //Redirected
-        assertHeaderEquals("location", "/order/new", response);
+        assertHeaderEquals("Location", "/order/new", response);
     }
 
 

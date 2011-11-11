@@ -24,7 +24,6 @@ public class ExpiredOrdersJobs extends Job<Void> {
             DeliveryOrderResult close = order.close();
             order.validateAndSave();
             Mails.sendOrder(close);
-            close.validateAndCreate();
         }
     }
 

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -15,6 +16,7 @@ import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
+@Entity
 public class DeliveryOrderResult extends Model {
 
     @OneToOne
@@ -23,12 +25,12 @@ public class DeliveryOrderResult extends Model {
     public DeliveryOrder order;
 
     @ManyToOne
-    @JoinColumn(name = "UserId", nullable = false)
+    @JoinColumn(name = "CallerId", nullable = false)
     @Required
     public User caller;
 
     @ManyToOne
-    @JoinColumn(name = "UserId", nullable = false)
+    @JoinColumn(name = "PayerId", nullable = false)
     @Required
     public User payer;
 

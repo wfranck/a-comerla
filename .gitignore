@@ -5,6 +5,7 @@
 /test-result
 /logs
 /data
+/db
 target
 .settings
 .classpath

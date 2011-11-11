@@ -73,8 +73,8 @@ public class DeliveryOrder extends Model {
         });
         BigDecimal total = BigDecimal.ZERO;
         for(DishOrder dishOrder : dishOrders) {
-            for(Dish dish : dishOrder.dishes) {
-                total.add(dish.price);
+            for(DishChildOrder dish : dishOrder.dishes) {
+                total = total.add(dish.dish.price);
             }
         }
         List<User> users = new ArrayList<User>(allUsers);
@@ -86,7 +86,7 @@ public class DeliveryOrder extends Model {
             payer = users.get(0);
         } else {
             caller = users.get(0);
-            payer = users.get(0);
+            payer = users.get(1);
         }
         return new DeliveryOrderResult(this, caller, payer, users, total);
 

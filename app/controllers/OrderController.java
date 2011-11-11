@@ -7,6 +7,7 @@ import java.util.List;
 
 import models.DeliveryOrder;
 import models.Dish;
+import models.DishChildOrder;
 import models.DishOrder;
 import models.DueDateExpirationPolicy;
 import models.Restaurant;
@@ -25,19 +26,16 @@ public class OrderController extends Controller {
 
     public static void newOrder() {
         final ModelPaginator<Restaurant> restaurants = new ModelPaginator<Restaurant>(Restaurant.class);
-        render(restaurants);
+        ModelPaginator<DeliveryOrder> orders =
+                new ModelPaginator<DeliveryOrder>(DeliveryOrder.class, "expirationPolicy.expirationDate >= ?", new Date());
+        orders.getPageCount();
+        render(restaurants, orders);
     }
 
     public static void newOrderStep2(final Long id) {
         Restaurant r= Restaurant.findById(id);
         List<Restaurant> dishes = Dish.findByRestaurant(r);
         render(r, dishes);
-    }
-    public static void list() {
-        ModelPaginator<DeliveryOrder> orders =
-                new ModelPaginator<DeliveryOrder>(DeliveryOrder.class, "expirationPolicy.expirationDate >= ?", new Date());
-        orders.getPageCount();
-        render(orders);
     }
 
     public static void show(final Long id) {
@@ -46,16 +44,22 @@ public class OrderController extends Controller {
         render(order, dishes);
     }
 
-    public static void addNewDishOrder(final DeliveryOrder order, final Dish dish) {
+    public static void addNewDishOrder(@Valid final DeliveryOrder order, @Valid final Dish dish) {
         final User user =  Security.loggedIn();
-        order.addDishOrder(new DishOrder(user, dish));
+        DishOrder dishOrder = DishOrder.findExistent(order, user);
+        if (dishOrder == null) {
+            dishOrder = new DishOrder(user, dish);
+            order.addDishOrder(new DishOrder(user, dish));
+        } else {
+            dishOrder.dishes.add(new DishChildOrder(dish));
+        }
         if (!order.validateAndSave()) {
             validation.keep();
             flash.keep();
             show(order.id);
         }
         flash.success("Se guardo OK tu pedido", order);
-        list();
+        newOrder();
     }
 
 
@@ -72,7 +76,7 @@ public class OrderController extends Controller {
             newOrderStep2(restaurant.getId());
         }
         order.validateAndCreate();
-        redirect("Application.index");
+        newOrder();
 
     }
 

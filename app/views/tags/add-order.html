@@ -19,7 +19,7 @@
     #{/}
 #{/if}
 #{else}
-    <input type="hidden" name="deliveryorder.id" value="${_obj.id}">
+    <input type="hidden" name="order.id" value="${_obj.id}">
 #{/else}
    #{list items:r.images, as:'image'}
    <img src="@{Restaurants.getPicture(image.id)}" />

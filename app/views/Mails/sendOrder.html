@@ -15,7 +15,7 @@
                 <p>${dish.user.username}  pidio</p>
                 <ul>
                 #{list items:dish.dishes, as:'plate'}
-                    <li>${plate.description} que sale ${plate.price}</li>
+                    <li>${plate.dish.description} que sale ${plate.dish.price}</li>
                 #{/}
                 </ul>
                 </li>           
