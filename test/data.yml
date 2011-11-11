@@ -5,6 +5,11 @@ User(gonto):
    mail: gonto@gonto.com
    username: gonto
 
+User(admin):
+    mail: admin@admin.com
+    username: admin
+
+
 Restaurant(lasCabras):
     name: Las cabras
     telephone: 4888-8858
@@ -12,3 +17,8 @@ Restaurant(lasCabras):
 Restaurant(laCeleste):
     name: La celeste
     telephone: 4888-5655
+
+Dish(comida):
+    description: Cazuela cabars
+    price: 4.0
+    restaurant: laCeleste

@@ -3,12 +3,12 @@ package controllers;
 import javax.inject.Inject;
 
 import models.User;
-import authentication.LDAPAuthenticator;
+import authentication.Authenticator;
 
 public class Security extends Secure.Security {
 
     @Inject
-    private static LDAPAuthenticator authenticator;
+    private static Authenticator authenticator;
 
     static boolean authentify(final String username, final String password) {
         return authenticator.login(username, password);

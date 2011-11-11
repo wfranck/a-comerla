@@ -14,6 +14,8 @@ GET  /order/new                                  OrderController.newOrder
 GET  /order/new/{id}                                  OrderController.newOrderStep2
 GET /order/list                                       OrderController.list
 GET /order/show/{id}                                       OrderController.show
+POST /order/new                                       OrderController.create
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

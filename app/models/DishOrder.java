@@ -1,7 +1,6 @@
 package models;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -45,10 +44,6 @@ public class DishOrder extends Model {
             throw new IllegalArgumentException("You can't add this if it wasn't added");
         }
         this.order = order;
-    }
-
-    public List<Dish> getDishes() {
-        return Collections.unmodifiableList(dishes);
     }
 
 }

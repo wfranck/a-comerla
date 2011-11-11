@@ -22,7 +22,7 @@ import org.springframework.ldap.filter.EqualsFilter;
  * @author Martin Silva
  * @since Oct 21, 2011
  */
-public class LDAPAuthenticator {
+public class LDAPAuthenticator implements Authenticator{
 
     private final LdapTemplate ldapTemplate;
 

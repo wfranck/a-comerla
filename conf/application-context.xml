@@ -3,7 +3,7 @@
 <beans>
     
     <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
-          <property name="url" value="ldap://192.168.160.57:1389" />
+          <property name="url" value="${ldap.url}" />
           <property name="userDn" value="uid=admin,ou=system" />
           <property name="base" value="dc=zauber,dc=com.ar" />
           <property name="password" value="secret" />
@@ -12,8 +12,9 @@
             <constructor-arg ref="contextSource" />
           </bean>
           
-     <bean id="authenticator" class="authentication.LDAPAuthenticator">
-       <constructor-arg ref="ldapTemplate" />
+     <bean id="authenticator" class="authentication.AuthenticationFactoryBean">
+        <property name="template" ref="ldapTemplate"></property>
+        <property name="mock" value="${ldap.mock}"></property>
      </bean>
     
 </beans>
