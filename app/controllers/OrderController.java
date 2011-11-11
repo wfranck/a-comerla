@@ -34,21 +34,20 @@ public class OrderController extends Controller {
         render(r, dishes);
     }
     public static void list() {
-        ModelPaginator<DeliveryOrder> orders = 
-            new ModelPaginator<DeliveryOrder>(DeliveryOrder.class, "expirationPolicy.expirationDate >= ?", new Date());
+        ModelPaginator<DeliveryOrder> orders =
+                new ModelPaginator<DeliveryOrder>(DeliveryOrder.class, "expirationPolicy.expirationDate >= ?", new Date());
         orders.getPageCount();
         render(orders);
     }
-    
+
     public static void show(final Long id) {
         DeliveryOrder order = DeliveryOrder.findById(id);
         List<Restaurant> dishes = Dish.findByRestaurant(order.restaurant);
         render(order, dishes);
     }
-    
+
     public static void addNewDishOrder(final DeliveryOrder order, final Dish dish) {
-      //TODO: User is mocked
-        final User user =  User.all().first();
+        final User user =  Security.loggedIn();
         order.addDishOrder(new DishOrder(user, dish));
         if (!order.validateAndSave()) {
             validation.keep();
@@ -58,13 +57,11 @@ public class OrderController extends Controller {
         flash.success("Se guardo OK tu pedido", order);
         list();
     }
-    
-    
-    
+
+
+
     public static void create(@Valid final Restaurant restaurant, @Valid final Dish dish, @As("dd/MM/yy HH:mm") final Date date) throws ParseException{
-        //TODO: User is mocked
-        final User user =  User.all().first();
-        //TODO: Now we only use Due Date
+        final User user =  Security.loggedIn();
         final DeliveryOrder order = new DeliveryOrder(new DueDateExpirationPolicy(date), restaurant);
         final DishOrder dishOrder = new DishOrder(user, dish);
         order.addDishOrder(dishOrder);
@@ -88,17 +85,17 @@ public class OrderController extends Controller {
     public static void createDish(final String description, final BigDecimal price, final Long restaurant) {
         final Serializer serializer = new DishSerializer();
 
-    	final Restaurant r = Restaurant.findById(restaurant);
-    	final Dish dish = new Dish(description,price,r);
+        final Restaurant r = Restaurant.findById(restaurant);
+        final Dish dish = new Dish(description,price,r);
 
-    	if(validation.valid(dish).ok){
-    	    response.status = StatusCode.CREATED;
-    	    r.save();
+        if(validation.valid(dish).ok){
+            response.status = StatusCode.CREATED;
+            r.save();
 
-    	    renderJSON(serializer.serialize(dish));
-    	}
-    	else{
-    	    response.status = StatusCode.BAD_REQUEST;
-    	}
+            renderJSON(serializer.serialize(dish));
+        }
+        else{
+            response.status = StatusCode.BAD_REQUEST;
+        }
     }
 }

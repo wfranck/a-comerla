@@ -12,3 +12,5 @@ description=Description
 price=Price
 restaurant=Restaurant
 create.order.restaurant=Create order for %s
+order-mail-subject=La orden ha finalizado
+order-finished=La orden ha terminado

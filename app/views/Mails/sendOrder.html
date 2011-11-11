@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
+        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/play-pagination.css'}">
+    </head>
+    <body>
+        <h1>&{'order-finished'}</h1>
+        <h2>Los platos pedidos son</h2>
+        <ul>
+           #{list items:result.order.dishOrders, as:'dish'}
+                <li>
+                <p>${dish.user.username}  pidio</p>
+                <ul>
+                #{list items:dish.dishes, as:'plate'}
+                    <li>${plate.description} que sale ${plate.price}</li>
+                #{/}
+                </ul>
+                </li>           
+           #{/}
+        </ul>
+        <h2>Llamador</h2>
+        <div>${result.caller.username}</div>
+        <h2>El que paga</h2>
+        <div>${result.payer.username}</div>
+        
+        <h2>Total a pagar</h2>
+        <div>${result.total}</div>
+    </body>
+</html>

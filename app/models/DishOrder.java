@@ -16,37 +16,37 @@ import play.db.jpa.Model;
 
 @Entity
 public class DishOrder extends Model {
-    
+
     @ManyToOne
     @JoinColumn(name = "UserId", nullable = false)
     @Required
     public User user;
-    
+
     @OneToMany
-    @JoinTable(name = "DishOrderDishes", 
-            joinColumns = @JoinColumn(name = "DishOrderId"), 
-            inverseJoinColumns = @JoinColumn(name = "DishId"))
+    @JoinTable(name = "DishOrderDishes",
+    joinColumns = @JoinColumn(name = "DishOrderId"),
+    inverseJoinColumns = @JoinColumn(name = "DishId"))
     @Required
     @MinSize(1)
-    private List<Dish> dishes;
-    
+    public List<Dish> dishes;
+
     @ManyToOne
     @JoinColumn(name = "OrderId")
     @Required
     public DeliveryOrder order;
-    
+
     public DishOrder(final User user, final Dish... dishes) {
         this.user = user;
         this.dishes = Arrays.asList(dishes);
     }
-    
+
     public void setOrder(final DeliveryOrder order) {
-        if (!order.getDishOrders().contains(this)) {
+        if (!order.dishOrders.contains(this)) {
             throw new IllegalArgumentException("You can't add this if it wasn't added");
         }
         this.order = order;
     }
-    
+
     public List<Dish> getDishes() {
         return Collections.unmodifiableList(dishes);
     }
