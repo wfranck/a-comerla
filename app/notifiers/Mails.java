@@ -4,8 +4,6 @@ import models.DeliveryOrderResult;
 import models.User;
 import play.mvc.Mailer;
 
-import com.mysql.jdbc.Messages;
-
 public class Mails extends Mailer {
 
     public static void sendOrder(final DeliveryOrderResult result) {
@@ -13,7 +11,7 @@ public class Mails extends Mailer {
         for(User user : result.people) {
             addRecipient(user.mail);
         }
-        setSubject(Messages.getString("order-mail-subject"));
+        setSubject("A Comerlaaaaa!!!!");
         send(result);
     }
 
