@@ -1,0 +1,70 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+#{if flash.success}
+<h1>${flash.success}</h1>
+#{/}
+<h1>Hace tu pedido!</h1>
+<div class="row show-grid">
+    <div class="span-one-third">
+        <h2>Queres sumarte a algun pedido existente? Mira los de aca abajo!</h2>
+        
+        #{if orderCount > 0}
+        <table class="condensed-table bordered-table zebra-striped">
+            <thead>
+              <tr>
+                <th>Restaurant</th>
+                <th>Fecha de vencimiento</th>
+                <th>Sumate!</th>
+              </tr>
+            </thead>
+            <tbody>
+               #{list items:orders, as:'order'}
+                <tr>
+                    <td>${order.restaurant.name}</td>
+                    <td>${order.expirationPolicy.expirationDate}</td>
+                    <td><a href="@{OrderController.addToOrder(order.id)}">Sumate!</a></td>
+                </tr>
+               #{/list}
+               
+            </tbody>
+        </table>
+        #{/if}
+        #{else}
+            <h3>Acutalmente no hay ninguna orden :(. Se el primero en crear una!</h3>
+        #{/else}
+        
+    </div>
+    <div class="span-one-third">
+        <h2>Queres crear alguna orden con algun restaurante existente? Fijate aca!</h2>
+        #{if restCount > 0}
+        <table class="condensed-table bordered-table zebra-striped">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Hace tu pedido!</th>
+              </tr>
+            </thead>
+            <tbody>
+               #{paginate.list items:restaurants, as:'restaurant'}
+                <tr>
+                    <td>${restaurant.name}</td>
+                    <td><a href="@{OrderController.createForRestaurant(restaurant.id)}">Pedir!</a></td>
+                </tr>
+               #{/paginate.list}
+               
+            </tbody>
+        </table>
+        #{paginate.controls items:restaurants /}
+        #{/if}
+        #{else}
+            <h3>Acutalmente no hay ninguna restaurant :(. Se el primero en crear uno! Cliquea <a href="">aqui</a></h3>
+        #{/else}
+    </div>
+    <div class="span-one-third">
+        <h2>Ningun pedido existente te gusta</h2>
+        <h2>No esta tu restaurant</h2>
+        <h2>Crea uno haciendo click <a href="@{RestaurantController.newRestaurant()}">aqui</a></h2>
+        
+    </div>
+  </div>

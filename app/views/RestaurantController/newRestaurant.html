@@ -1,0 +1,38 @@
+#{extends 'main.html' /}
+#{set title:'Nuevo restaurant' /}
+#{greenscript.js 'dynamic-fields'/}
+<h2>Agregar nuevo Restaurant</h2>
+#{add-image index: 0, template:true /}
+<form  method="POST" action="@{RestaurantController.create()}" class="span8" enctype="multipart/form-data">
+    <fieldset>
+	    #{field 'restaurant.name'}
+	    
+        <div class="clearfix #{ifError field.name}error#{/ifError}">
+		  <label for="${field.name}">Nombre del restaurant</label>
+		  <div class="input">
+              <input class="xlarge" type="text" id="${field.id}" name="${field.name}" value="${field.flash}" >
+              <span class="help-inline">${field.error}</span>
+            </div>
+		</div>
+		#{/}
+		#{field 'restaurant.telephone'}
+		<div class="clearfix #{ifError field.name}error#{/ifError}">
+          <label for="${field.name}">Telefono</label>
+          <div class="input">
+              <input class="xlarge" type="text" id="${field.id}" name="${field.name}" value="${field.flash}" >
+              <span class="help-inline">${field.error}</span>
+            </div>
+        </div>
+	    #{/}
+	    <div class="images list">
+		    <div class="hidden template-class">images-template</div>
+		   #{list items:restaurant.images, as: 'i'}
+		       #{add-image index: i_index -1, template: false /}
+	        #{/list}
+	        #{adder /}
+        </div>
+    </fieldset>
+    <div class="actions">
+          <button type="submit" class="btn primary sender">Save changes</button>
+   </div>
+</form>

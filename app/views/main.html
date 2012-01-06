@@ -7,6 +7,7 @@
         
         #{greenscript.css "main" /}
         #{greenscript.css "jquery-ui-1.8.16.custom" /}
+        #{greenscript.css "bootstrap.less" /}
         #{greenscript.js output:'all'/}
         #{greenscript.css output: 'all'/}
        
@@ -15,6 +16,8 @@
         
     </head>
     <body>
-        #{doLayout /}
+        <div class="container">
+            #{doLayout /}
+        </div>
     </body>
 </html>

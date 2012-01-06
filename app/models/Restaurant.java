@@ -7,13 +7,16 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 import play.data.validation.MaxSize;
 import play.data.validation.Phone;
 import play.data.validation.Required;
+import play.data.validation.Valid;
 import play.db.jpa.Model;
-import controllers.CRUD.Exclude;
+
+import com.google.common.collect.Lists;
 
 @Entity
 public class Restaurant extends Model {
@@ -30,11 +33,18 @@ public class Restaurant extends Model {
     public String telephone;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-    @Exclude
+    @Valid
     public List<Dish> dishes;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
-    public List<ImageRestaurant> images;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "ImagesForRestaurant")
+    @Valid
+    @Required
+    public List<ImageRestaurant> images = Lists.newArrayList();
+    
+    public Restaurant() {
+        
+    }
 
     /**
      * Creates the Restaurant.

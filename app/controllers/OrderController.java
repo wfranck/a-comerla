@@ -13,6 +13,9 @@ import models.DueDateExpirationPolicy;
 import models.Restaurant;
 import models.User;
 import play.data.binding.As;
+import play.data.validation.Error;
+import play.data.validation.InFuture;
+import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.modules.paginate.ModelPaginator;
 import play.mvc.Controller;
@@ -24,21 +27,21 @@ import serializers.Serializer;
 @With(Secure.class)
 public class OrderController extends Controller {
 
-    public static void newOrder() {
+    public static void index() {
         final ModelPaginator<Restaurant> restaurants = new ModelPaginator<Restaurant>(Restaurant.class);
-        ModelPaginator<DeliveryOrder> orders =
-                new ModelPaginator<DeliveryOrder>(DeliveryOrder.class, "expirationPolicy.expirationDate >= ?", new Date());
-        orders.getPageCount();
-        render(restaurants, orders);
+        List<DeliveryOrder> orders = DeliveryOrder.find("expirationPolicy.expirationDate >= ?", new Date()).fetch();
+        int orderCount = orders.size();
+        int restCount = restaurants.size();
+        render(restaurants, orders, orderCount, restCount);
     }
 
-    public static void newOrderStep2(final Long id) {
+    public static void createForRestaurant(final Long id) {
         Restaurant r= Restaurant.findById(id);
         List<Restaurant> dishes = Dish.findByRestaurant(r);
         render(r, dishes);
     }
 
-    public static void show(final Long id) {
+    public static void addToOrder(final Long id) {
         DeliveryOrder order = DeliveryOrder.findById(id);
         List<Restaurant> dishes = Dish.findByRestaurant(order.restaurant);
         render(order, dishes);
@@ -55,28 +58,31 @@ public class OrderController extends Controller {
         }
         if (!order.validateAndSave()) {
             validation.keep();
-            flash.keep();
-            show(order.id);
+            params.flash();
+            addToOrder(order.id);
         }
-        flash.success("Se guardo OK tu pedido", order);
-        newOrder();
+        flash.success("Se guardo OK tu pedido");
+        index();
     }
 
 
 
-    public static void create(@Valid final Restaurant restaurant, @Valid final Dish dish, @As("dd/MM/yy HH:mm") final Date date) throws ParseException{
+    public static void createNewOrder(@Valid @Required final Restaurant restaurant, @Valid @Required final Dish dish,@Required @InFuture   @As("dd/MM/yy HH:mm") final Date date) throws ParseException{
         final User user =  Security.loggedIn();
         final DeliveryOrder order = new DeliveryOrder(new DueDateExpirationPolicy(date), restaurant);
         final DishOrder dishOrder = new DishOrder(user, dish);
         order.addDishOrder(dishOrder);
-        validation.valid(order);
         if (validation.hasErrors()) {
             validation.keep();
-            flash.keep();
-            newOrderStep2(restaurant.getId());
+            Error error = validation.error("dish.description");
+            if (error != null) {
+                validation.addError("dish.id", error.message());
+            }
+            params.flash();
+            createForRestaurant(restaurant.getId());
         }
         order.validateAndCreate();
-        newOrder();
+        index();
 
     }
 

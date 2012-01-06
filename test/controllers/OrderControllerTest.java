@@ -40,39 +40,39 @@ public class OrderControllerTest extends FunctionalTest {
     }
 
     @Test
-    public void testNewOrderShow() {
-        LOGIN();
-        Response response = SECURED_GET("/order/new");
-        assertStatus(200, response);
-    }
+        public void testIndexShow() {
+            LOGIN();
+            Response response = SECURED_GET("/order/new");
+            assertStatus(200, response);
+        }
 
     @Test
-    public void testNewOrderPostFailed() {
-        LOGIN();
-        Map<String, String> map = Maps.newHashMap();
-        map.put("date", "hola");
-        String restId = Restaurant.all().<Restaurant>first().id.toString();
-        map.put("restaurant.id", restId);
-        map.put("dish.id", Dish.all().<Dish>first().id.toString());
-        Response response = SECURED_POST("/order/new", map);
-        assertStatus(302, response); //Redirected for error
-        assertHeaderEquals(LOCATION_HEADER, "/order/new/" + restId, response);
-    }
+        public void testIndexPostFailed() {
+            LOGIN();
+            Map<String, String> map = Maps.newHashMap();
+            map.put("date", "hola");
+            String restId = Restaurant.all().<Restaurant>first().id.toString();
+            map.put("restaurant.id", restId);
+            map.put("dish.id", Dish.all().<Dish>first().id.toString());
+            Response response = SECURED_POST("/order/new", map);
+            assertStatus(302, response); //Redirected for error
+            assertHeaderEquals(LOCATION_HEADER, "/order/new/" + restId, response);
+        }
 
     @Test
-    public void testNewOrderPost() {
-        LOGIN();
-        Map<String, String> map = Maps.newHashMap();
-        map.put("date", "12/12/2012 16:23");
-        String restId = Restaurant.all().<Restaurant>first().id.toString();
-        map.put("restaurant.id", restId);
-        map.put("dish.id", Dish.all().<Dish>first().id.toString());
-        Response response = SECURED_POST("/order/new", map);
-        assertStatus(302, response); //Redirected for error
-        assertHeaderEquals(LOCATION_HEADER, "/", response); //Redirected to index if it's ok
-
-        Assert.assertEquals(1, DeliveryOrder.all().fetch().size());
-    }
+        public void testIndexPost() {
+            LOGIN();
+            Map<String, String> map = Maps.newHashMap();
+            map.put("date", "12/12/2012 16:23");
+            String restId = Restaurant.all().<Restaurant>first().id.toString();
+            map.put("restaurant.id", restId);
+            map.put("dish.id", Dish.all().<Dish>first().id.toString());
+            Response response = SECURED_POST("/order/new", map);
+            assertStatus(302, response); //Redirected for error
+            assertHeaderEquals(LOCATION_HEADER, "/", response); //Redirected to index if it's ok
+    
+            Assert.assertEquals(1, DeliveryOrder.all().fetch().size());
+        }
 
     private Response SECURED_GET(final String url) {
         Request request = newRequest();

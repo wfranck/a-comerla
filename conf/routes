@@ -3,27 +3,20 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
-GET     /crud/index                             Application.adminHome
-*      /restaurants/generate              Restaurants.generate                
-*      /admin                                   module:crud
-GET   /restaurants/get-picture/{id}             Restaurants.getPicture
-GET   /restaurants/delete-picture/{id}             Restaurants.deletePicture
-GET   /restaurants/add-picture                   Restaurants.addPicture
-GET  /order/new                                  OrderController.newOrder
-GET  /order/new/{id}                                  OrderController.newOrderStep2
-GET /order/list                                       OrderController.list
-GET /order/show/{id}                                       OrderController.show
-POST /order/new                                       OrderController.create
-POST /dish/new                                       OrderController.addNewDishOrder
-
+GET  /                                       OrderController.index
+GET  /order-restaurant/mew/{id}                                  OrderController.createForRestaurant
+GET /order/{id}                                       OrderController.addToOrder
+POST /order/create                                       OrderController.createNewOrder
+POST /order/add-dish                                       OrderController.addNewDishOrder
+POST /dish/create                                          OrderController.createDish
+GET /restaurant/new                                        RestaurantController.newRestaurant
+POST /restaurant/create                                        RestaurantController.create
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
-
-# Catch all
 *       /{controller}/{action}                  {controller}.{action}
+
 
                             

@@ -1,0 +1,23 @@
+#{extends 'main.html' /}
+#{set title:'Ver Pedido' /}
+#{set 'moreScripts'}
+    #{get 'moreScripts' /}
+#{/}
+<h2>Pedido para ${order.restaurant.name}</h2>
+
+#{if order.expirationPolicy.isExpired()}
+    <h2>La orden ha expirado, no podes realizar ningun pedido</h2>
+#{/if}
+#{else}
+    <p>Este pedido vence a las ${order.expirationPolicy.expirationDate}</p>
+    <form  method="POST" action="@{OrderController.addNewDishOrder()}" class="form-stacked">
+	    <fieldset>
+	        #{add-order new:false, obj: order, , dishes: dishes /}    
+	    </fieldset>
+	    <div class="actions">
+	          <button type="submit" class="btn primary sender">Dar de alta el pedido</button>
+	   </div>
+    </form>
+    
+#{/else}
+

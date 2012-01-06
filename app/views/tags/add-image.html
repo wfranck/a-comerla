@@ -1,0 +1,14 @@
+<div class="deleteable #{if _template}hidden images-template#{/}">
+#{field 'restaurant.images[' + _index + '].image'}
+ <div class="clearfix #{if !_template}#{ifError field.name}error#{/ifError}#{/}">
+   <label for="${field.name}">Imagen</label>
+   <div class="input">
+       <input class="input-file" type="file" id="${field.id}" name="${field.name}" value="${field.flash}" >
+       <input type="submit" value="Borrar" class="delete btn danger" />
+       #{if !_template}
+        <span class="help-inline">${field.error}</span>
+       #{/}
+     </div>
+ </div>
+#{/}
+</div>

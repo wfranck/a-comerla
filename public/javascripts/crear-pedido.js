@@ -19,11 +19,13 @@ $(function(){
     });
     
     function addOptionInCombo(dish){
-        $('.dishes')
-                .append($('<option>', { value : dish.id })
-                .text(dish.description + " | $ " + dish.price ));
+    	var option = $('<option>', { value : dish.id });;
+    	
+        $('.dishes').append(option);
+    	
+    	option.attr('selected', 'selected').text(dish.description + " | $ " + dish.price );
     };
-	$('#date').datetimepicker({
+	$('.date').datetimepicker({
 		dateFormat: 'dd/mm/yy',
 		timeFormat: 'hh:mm'
 	});
