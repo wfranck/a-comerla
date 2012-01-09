@@ -46,16 +46,15 @@
               </tr>
             </thead>
             <tbody>
-               #{paginate.list items:restaurants, as:'restaurant'}
+               #{list items:restaurants, as:'restaurant'}
                 <tr>
                     <td>${restaurant.name}</td>
                     <td><a href="@{OrderController.createForRestaurant(restaurant.id)}">Pedir!</a></td>
                 </tr>
-               #{/paginate.list}
+               #{/list}
                
             </tbody>
         </table>
-        #{paginate.controls items:restaurants /}
         #{/if}
         #{else}
             <h3>Acutalmente no hay ninguna restaurant :(. Se el primero en crear uno! Cliquea <a href="">aqui</a></h3>
