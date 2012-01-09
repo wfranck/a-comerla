@@ -51,6 +51,9 @@ public class UserSocialInformation extends Model{
         socialUser.email = user.mail;
         socialUser.secret = secret;
         socialUser.token = token;
+        socialUser.id = new UserId();
+        socialUser.id.provider = provider;
+        socialUser.id.id = providerId;
         return socialUser;
     }
     
