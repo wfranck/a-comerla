@@ -17,7 +17,6 @@ import play.data.validation.Error;
 import play.data.validation.InFuture;
 import play.data.validation.Required;
 import play.data.validation.Valid;
-import play.modules.paginate.ModelPaginator;
 import play.mvc.Controller;
 import play.mvc.Http.StatusCode;
 import play.mvc.With;
@@ -29,7 +28,7 @@ import controllers.securesocial.SecureSocial;
 public class OrderController extends Controller {
 
     public static void index() {
-        final ModelPaginator<Restaurant> restaurants = new ModelPaginator<Restaurant>(Restaurant.class);
+        final List<Restaurant> restaurants = Restaurant.all().fetch();
         List<DeliveryOrder> orders = DeliveryOrder.find("expirationPolicy.expirationDate >= ?", new Date()).fetch();
         int orderCount = orders.size();
         int restCount = restaurants.size();

@@ -3,12 +3,27 @@
 
 User(gonto):
    mail: gonto@gonto.com
-   username: gonto
 
 User(admin):
     mail: admin@admin.com
-    username: admin
 
+UserSocialInformation(gontoInfo):
+    provider: google
+    providerId: miId
+    token: miToken
+    secret: miSecret
+    accessToken: miAccesstoken
+    authMethod: OPENID_OAUTH_HYBRID
+    user: gonto
+
+UserSocialInformation(adminInfo):
+    provider: google
+    providerId: miId2
+    token: miToken2
+    secret: miSecret2
+    accessToken: miAccesstoken2
+    authMethod: OPENID_OAUTH_HYBRID
+    user: admin
 
 Restaurant(lasCabras):
     name: Las cabras

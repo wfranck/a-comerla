@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import play.data.validation.Unique;
 import play.db.jpa.Model;
 
 import com.google.common.collect.Lists;
@@ -15,6 +16,7 @@ import com.google.common.collect.Lists;
 public class User extends Model {
 
     @Column(name = "Mail", nullable = false, unique = true)
+    @Unique
     public String mail;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy= "user")

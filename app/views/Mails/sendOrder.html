@@ -12,7 +12,7 @@
         <ul>
            #{list items:result.order.dishOrders, as:'dish'}
                 <li>
-                <p>${dish.user.username}  pidio</p>
+                <p>${dish.user.mail}  pidio</p>
                 <ul>
                 #{list items:dish.dishes, as:'plate'}
                     <li>${plate.dish.description} que sale ${plate.dish.price}</li>
@@ -28,5 +28,7 @@
         
         <h2>Total a pagar</h2>
         <div>${result.total}</div>
+        <h2>Telefono de ${result.order.restaurant.name}</h2>
+        <div>${result.order.restaurant.telephone}</div>
     </body>
 </html>
