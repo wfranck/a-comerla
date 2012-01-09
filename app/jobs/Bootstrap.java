@@ -1,5 +1,6 @@
-package models;
+package jobs;
 
+import models.Restaurant;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 import play.test.Fixtures;

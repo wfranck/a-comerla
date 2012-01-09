@@ -14,7 +14,8 @@ public class DeliveryOrderTest  {
         Restaurant r = new Restaurant("gonto", "48557524");
         Dish dish = new Dish("Plato", BigDecimal.ONE, r);
         DeliveryOrder order = new DeliveryOrder(new DueDateExpirationPolicy(new Date()), r);
-        User user = new User("gonto@gonto.com", "gonto");
+        User user = new User();
+        user.mail = "gonto@gonto.com";
         order.dishOrders.add(new DishOrder(user, dish));
 
         DeliveryOrderResult close = order.close();

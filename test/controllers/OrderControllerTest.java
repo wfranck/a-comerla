@@ -42,7 +42,7 @@ public class OrderControllerTest extends FunctionalTest {
     @Test
         public void testIndexShow() {
             LOGIN();
-            Response response = SECURED_GET("/order/new");
+            Response response = SECURED_GET("/");
             assertStatus(200, response);
         }
 
@@ -54,9 +54,9 @@ public class OrderControllerTest extends FunctionalTest {
             String restId = Restaurant.all().<Restaurant>first().id.toString();
             map.put("restaurant.id", restId);
             map.put("dish.id", Dish.all().<Dish>first().id.toString());
-            Response response = SECURED_POST("/order/new", map);
+            Response response = SECURED_POST("/order/create", map);
             assertStatus(302, response); //Redirected for error
-            assertHeaderEquals(LOCATION_HEADER, "/order/new/" + restId, response);
+            assertHeaderEquals(LOCATION_HEADER, "/order-restaurant/mew/" + restId, response);
         }
 
     @Test
@@ -67,8 +67,8 @@ public class OrderControllerTest extends FunctionalTest {
             String restId = Restaurant.all().<Restaurant>first().id.toString();
             map.put("restaurant.id", restId);
             map.put("dish.id", Dish.all().<Dish>first().id.toString());
-            Response response = SECURED_POST("/order/new", map);
-            assertStatus(302, response); //Redirected for error
+            Response response = SECURED_POST("/order/create", map);
+            assertStatus(302, response); //Redirected for success
             assertHeaderEquals(LOCATION_HEADER, "/", response); //Redirected to index if it's ok
     
             Assert.assertEquals(1, DeliveryOrder.all().fetch().size());

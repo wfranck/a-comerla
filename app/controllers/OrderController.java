@@ -23,8 +23,9 @@ import play.mvc.Http.StatusCode;
 import play.mvc.With;
 import serializers.DishSerializer;
 import serializers.Serializer;
+import controllers.securesocial.SecureSocial;
 
-@With(Secure.class)
+@With(SecureSocial.class)
 public class OrderController extends Controller {
 
     public static void index() {
@@ -48,7 +49,7 @@ public class OrderController extends Controller {
     }
 
     public static void addNewDishOrder(@Valid final DeliveryOrder order, @Valid final Dish dish) {
-        final User user =  Security.loggedIn();
+        final User user =  Security.connected();
         DishOrder dishOrder = DishOrder.findExistent(order, user);
         if (dishOrder == null) {
             dishOrder = new DishOrder(user, dish);
@@ -68,7 +69,7 @@ public class OrderController extends Controller {
 
 
     public static void createNewOrder(@Valid @Required final Restaurant restaurant, @Valid @Required final Dish dish,@Required @InFuture   @As("dd/MM/yy HH:mm") final Date date) throws ParseException{
-        final User user =  Security.loggedIn();
+        final User user =  Security.connected();
         final DeliveryOrder order = new DeliveryOrder(new DueDateExpirationPolicy(date), restaurant);
         final DishOrder dishOrder = new DishOrder(user, dish);
         order.addDishOrder(dishOrder);

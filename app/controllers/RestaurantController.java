@@ -5,8 +5,9 @@ import models.Restaurant;
 import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;
+import controllers.securesocial.SecureSocial;
 
-@With(Secure.class)
+@With(SecureSocial.class)
 public class RestaurantController extends Controller {
     
     public static void newRestaurant() {

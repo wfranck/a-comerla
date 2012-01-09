@@ -19,7 +19,7 @@ $(function(){
     });
     
     function addOptionInCombo(dish){
-    	var option = $('<option>', { value : dish.id });;
+    	var option = $('<option>', { value : dish.id });
     	
         $('.dishes').append(option);
     	
