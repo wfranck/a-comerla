@@ -17,20 +17,23 @@ import play.data.validation.Error;
 import play.data.validation.InFuture;
 import play.data.validation.Required;
 import play.data.validation.Valid;
+import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Http.StatusCode;
-import play.mvc.With;
 import serializers.DishSerializer;
 import serializers.Serializer;
-import controllers.securesocial.SecureSocial;
 
-@With(SecureSocial.class)
 public class OrderController extends Controller {
+    
+    @Before
+    public static void renderOrders() {
+        List<DeliveryOrder> orders = DeliveryOrder.find("expirationPolicy.expirationDate >= ?", new Date()).fetch();
+        renderArgs.put("orders", orders);
+    }
 
     public static void index() {
         final List<Restaurant> restaurants = Restaurant.all().fetch();
-        List<DeliveryOrder> orders = DeliveryOrder.find("expirationPolicy.expirationDate >= ?", new Date()).fetch();
-        render(restaurants, orders);
+        render(restaurants);
     }
 
     public static void createForRestaurant(final Long id) {

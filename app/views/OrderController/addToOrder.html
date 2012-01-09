@@ -1,12 +1,7 @@
 #{extends 'main.html' /}
-#{set title:'Ver Pedido' /}
-#{set 'moreScripts'}
-    #{get 'moreScripts' /}
-#{/}
-<h2>Pedido para ${order.restaurant.name}</h2>
-
+#{set title:'Agrega tu pedido' /}
 #{if order.expirationPolicy.isExpired()}
-    <h2>La orden ha expirado, no podes realizar ningun pedido</h2>
+    <h1>La orden ha expirado, no podes realizar ningun pedido</h1>
 #{/if}
 #{else}
     <p>Este pedido vence a las ${order.expirationPolicy.expirationDate}</p>
