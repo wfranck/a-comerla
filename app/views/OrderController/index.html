@@ -8,80 +8,27 @@
             #{list items:orders, as:'order'}
             <li>
                 <h3>${order.restaurant.name}</h3>
-                <h4>$</h4>
+                <h4>${order.expirationPolicy.expirationDate.format('hh:mm')}</h4>
                 <p class="pedidos">
-                    4
+                    ${order.dishOrders.size()}
                 </p>
-                <a class="btn">sumarme</a>
+                <a class="btn">Sumarme</a>
             </li>
             #{/}
-            <li>
-                <h3>Cocina con Alma</h3>
-                <h4>12:30hs</h4>
-                <p class="pedidos">
-                    4
-                </p>
-                <a class="btn">sumarme</a>
-            </li>
         </ul>
     </div>
     <div class="span12 relative">
         <h2 class="underline">Elegí el restaurant</h2>
         <a class="btn agregar-plato">Agregar restaurant</a>
         <div class="row top">
-            <div class="span4 local top">
-                <h2>Las Cabras</h2>
-                <p>
-                    4689-8596
-                </p>
-            </div>
-            <div class="span4 local top">
-                <h2>Cocina con Alma</h2>
-                <p>
-                    4689-8596
-                </p>
-            </div>
+            #{list items:restaurants, as:'restaurant'}
             <div class="span4 local">
-                <h2>EL chino</h2>
+                <h2>${restaurant.name}</h2>
                 <p>
-                    4689-8596
+                    ${restaurant.telephone}
                 </p>
             </div>
-        </div>
-        <div class="row">
-            <div class="span4 local">
-                <h2>Bakano</h2>
-                <p>
-                    4689-8596
-                </p>
-            </div>
-            <div class="span4 local">
-                <h2>EL chino</h2>
-                <p>
-                    4689-8596
-                </p>
-            </div>
-            <div class="span4 local">
-                <h2>Bakano</h2>
-                <p>
-                    4689-8596
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="span4 local">
-                <h2>Bakano</h2>
-                <p>
-                    4689-8596
-                </p>
-            </div>
-            <div class="span4 local">
-                <h2>EL chino</h2>
-                <p>
-                    4689-8596
-                </p>
-            </div>
-        </div>
+            #{/}
     </div>
 </div>
 

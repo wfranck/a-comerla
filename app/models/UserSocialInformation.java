@@ -68,6 +68,8 @@ public class UserSocialInformation extends Model{
         authMethod =  socialUser.authMethod;
         secret = socialUser.secret;
         token = socialUser.token;
+        provider = socialUser.id.provider;
+        providerId = socialUser.id.id;
     }
 
 }

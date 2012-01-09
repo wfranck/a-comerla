@@ -1,0 +1,89 @@
+body {
+	padding-top: 60px;
+}
+.pull-right {
+	color: #999;
+}
+.topbar a {
+	color: #fff;
+}
+ul, ol {
+	margin: 0;
+	list-style: none;
+}
+.ticker li {
+	position: relative;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 10px;
+}
+.underline{
+	border-bottom: 5px solid #ccc;
+	margin-bottom: 18px;
+}
+.pedidos {
+	position: absolute;
+	color: #fff;
+	top: 8px;
+	right: 20px;
+	background: red;
+	padding: 4px 10px;
+	border-radius: 25px;
+}
+.local {
+	width: 200px;
+padding: 10px;
+}
+.local:hover,
+.plato:hover {
+	background-color: #f3f3f3;
+	cursor: pointer;
+}
+.top .local {
+	margin-top: 0;
+}
+.local img {
+	float: left;
+	margin-right: 10px;
+}
+.local h2 {
+	line-height: 24px;
+}
+/*
+ * platos
+ */
+.agregar-plato {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+.plato {
+	position: relative;
+	display: inline-block;
+	width: 680px;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+.plato img {
+	float: left;
+	margin-right: 10px;
+}
+.precio {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	font-size: 24px;
+}
+.actualizar-precio {
+	position: absolute;
+	right: 10px;
+	top: 50px;
+}
+/*
+ * comunes
+ */
+.relative {
+	position: relative
+}
+.right {
+	float: right
+}

@@ -30,9 +30,7 @@ public class OrderController extends Controller {
     public static void index() {
         final List<Restaurant> restaurants = Restaurant.all().fetch();
         List<DeliveryOrder> orders = DeliveryOrder.find("expirationPolicy.expirationDate >= ?", new Date()).fetch();
-        int orderCount = orders.size();
-        int restCount = restaurants.size();
-        render(restaurants, orders, orderCount, restCount);
+        render(restaurants, orders);
     }
 
     public static void createForRestaurant(final Long id) {
