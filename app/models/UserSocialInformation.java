@@ -41,7 +41,7 @@ public class UserSocialInformation extends Model{
     public AuthenticationMethod authMethod;
     
     public UserSocialInformation(final SocialUser user) {
-        update(user);
+        updateLocal(user);
     }
 
     public SocialUser toSocialUser() {
@@ -59,9 +59,13 @@ public class UserSocialInformation extends Model{
     }
 
     public void update(final SocialUser socialUser) {
+        updateLocal(socialUser);
+        this.user.mail =  socialUser.email;
+    }
+    
+    public void updateLocal(final SocialUser socialUser) {
         accessToken =  socialUser.accessToken;
         authMethod =  socialUser.authMethod;
-        this.user.mail =  socialUser.email;
         secret = socialUser.secret;
         token = socialUser.token;
     }
