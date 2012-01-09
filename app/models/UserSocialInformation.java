@@ -27,16 +27,16 @@ public class UserSocialInformation extends Model{
     @Column(name = "ProviderId", nullable = false)
     public String providerId;
     
-    @Column(name = "Token", nullable = false)
+    @Column(name = "Token")
     public String token;
 
-    @Column(name = "Secret", nullable = false)
+    @Column(name = "Secret")
     public String secret;
 
-    @Column(name = "AccessToken", nullable = false)
+    @Column(name = "AccessToken")
     public String accessToken;
     
-    @Column(name = "AuthenticationMethod", nullable = false)
+    @Column(name = "AuthenticationMethod")
     @Enumerated(EnumType.STRING)
     public AuthenticationMethod authMethod;
     
