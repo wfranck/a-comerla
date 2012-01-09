@@ -14,3 +14,4 @@ restaurant=Restaurant
 create.order.restaurant=Create order for %s
 order-mail-subject=La orden ha finalizado
 order-finished=La orden ha terminado
+securesocial.errorCreatingAccount=No se pueden crear cuentas que no sean de Zauber Labs

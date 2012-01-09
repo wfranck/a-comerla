@@ -19,6 +19,9 @@ public class AComerlaUserService implements Service {
 
     @Override
     public void save(final SocialUser user) {
+        if (!user.email.toLowerCase().endsWith("@zauberlabs.com")) {
+            throw new IllegalStateException("Solo mails de Zauberlabs");
+        }
         UserSocialInformation usi = UserSocialInformation.findByUserId(user.id);
         if (usi != null) {
             usi.update(user);
