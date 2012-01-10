@@ -17,18 +17,12 @@ import play.data.binding.As;
 import play.data.validation.Error;
 import play.data.validation.Required;
 import play.data.validation.Valid;
-import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
 import controllers.securesocial.SecureSocial;
 @With(value = {SideBarController.class, SecureSocial.class})
 public class OrderController extends Controller {
     
-    @Before
-    public static void renderOrders() {
-        List<DeliveryOrder> orders = DeliveryOrder.find("expirationPolicy.expirationDate >= ?", new Date()).fetch();
-        renderArgs.put("orders", orders);
-    }
 
     public static void index() {
         final List<Restaurant> restaurants = Restaurant.all().fetch();

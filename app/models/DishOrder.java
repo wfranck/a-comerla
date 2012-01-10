@@ -18,7 +18,7 @@ import play.db.jpa.Model;
 public class DishOrder extends Model {
 
     @ManyToOne
-    @JoinColumn(name = "UserId", nullable = false)
+    @JoinColumn(name = "SocialUserId", nullable = false)
     @Required
     public User user;
 

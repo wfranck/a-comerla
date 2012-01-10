@@ -1,6 +1,7 @@
 package jobs;
 
-import models.Restaurant;
+import play.Play;
+import play.Play.Mode;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
@@ -9,7 +10,7 @@ import play.test.Fixtures;
 public class Bootstrap extends Job {
 	@Override
 	public void doJob() throws Exception {
-		if (Restaurant.findAll().isEmpty()) {
+		if (Play.mode.equals(Mode.DEV)) {
 			Fixtures.loadModels("initial-data.yml");
 		}
 	}

@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import play.data.validation.Unique;
 import play.db.jpa.Model;
@@ -13,6 +14,7 @@ import play.db.jpa.Model;
 import com.google.common.collect.Lists;
 
 @Entity
+@Table(name ="SocialUser")
 public class User extends Model {
 
     @Column(name = "Mail", nullable = false, unique = true)

@@ -15,14 +15,16 @@ public class SideBarController extends Controller {
     @Before
     public static void renderOrders() {
         User u = Security.connected();
-        List<DishChildOrder> dishes =  DishOrder.findForUser(u);
-        boolean showMine = false;
-        if (!dishes.isEmpty()) {
-            showMine = true;
-            renderArgs.put("dishes", dishes);
+        if (u != null) {
+            List<DishChildOrder> dishes =  DishOrder.findForUser(u);
+            boolean showMine = false;
+            if (!dishes.isEmpty()) {
+                showMine = true;
+                renderArgs.put("dishes", dishes);
+            }
+            List<DeliveryOrder> orders = DeliveryOrder.find("expirationPolicy.expirationDate >= ?", new Date()).fetch();
+            renderArgs.put("orders", orders);
+            renderArgs.put("showMine", showMine);
         }
-        List<DeliveryOrder> orders = DeliveryOrder.find("expirationPolicy.expirationDate >= ?", new Date()).fetch();
-        renderArgs.put("orders", orders);
-        renderArgs.put("showMine", showMine);
     }
 }
