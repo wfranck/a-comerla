@@ -84,26 +84,42 @@ public class OrderController extends Controller {
     public static void createNewOrder(@Valid @Required final Restaurant restaurant, @Valid @Required final Dish dish,@Required  final String date) throws ParseException{
         Date theDate = parseDate(date);
         final User user =  Security.connected();
-        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
-        if (theDate != null) {
-            theDate = todayize(theDate);
-            validation.future("date", theDate, c.getTime());
-        }
+        theDate = validateDate(theDate);
         final DeliveryOrder order = new DeliveryOrder(new DueDateExpirationPolicy(theDate), restaurant);
         final DishOrder dishOrder = new DishOrder(user, dish);
         order.addDishOrder(dishOrder);
         if (validation.hasErrors()) {
             validation.keep();
-            Error error = validation.error("dish.description");
-            if (error != null) {
-                validation.addError("dish.id", error.message());
-            }
+            validateDish();
             params.flash();
             newOrder(restaurant.id, dish.id);
         }
         order.validateAndCreate();
         index();
 
+    }
+
+    /**
+     * @param theDate
+     * @return
+     */
+    private static Date validateDate(Date theDate) {
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
+        if (theDate != null) {
+            theDate = todayize(theDate);
+            validation.future("date", theDate, c.getTime());
+        }
+        return theDate;
+    }
+
+    /**
+     * 
+     */
+    private static void validateDish() {
+        Error error = validation.error("dish.description");
+        if (error != null) {
+            validation.addError("dish.id", error.message());
+        }
     }
 
     /**
