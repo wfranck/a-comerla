@@ -22,7 +22,7 @@ public class SideBarController extends Controller {
                 showMine = true;
                 renderArgs.put("alldishes", dishes);
             }
-            List<DeliveryOrder> orders = DeliveryOrder.find("expirationPolicy.expirationDate >= ? order by expirationPolicy.expirationDate desc", new Date()).fetch();
+            List<DeliveryOrder> orders = DeliveryOrder.find("expirationPolicy.expirationDate >= ? order by expirationPolicy.expirationDate asc", new Date()).fetch();
             renderArgs.put("orders", orders);
             renderArgs.put("showMine", showMine);
         }
