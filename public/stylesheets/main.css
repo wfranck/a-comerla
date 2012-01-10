@@ -12,3 +12,9 @@
     top: -2px;
     color: white !important;
 }
+
+.thumb {
+    width: 100px;
+    height: 100px;
+    overflow: auto;
+}
