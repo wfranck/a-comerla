@@ -8,11 +8,11 @@
     <h2 class="underline">Crea tu plato</h2>
     <form  method="POST" action="@{RestaurantController.addDish()}" class="span8" enctype="multipart/form-data">
     <fieldset>
-        #{list items:r.images, as:'i'}
+        <!-- #{list items:r.images, as:'i'}
             <div class="thumb">
                 <img src="@{RestaurantController.image(i.id)}" />
             </div>
-        #{/}
+        #{/} -->
         #{field 'dish.name'}
         
         <div class="clearfix #{ifError field.name}error#{/ifError}">

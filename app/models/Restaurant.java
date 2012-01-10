@@ -39,7 +39,6 @@ public class Restaurant extends Model {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "ImagesForRestaurant")
     @Valid
-    @Required
     public List<ImageRestaurant> images = Lists.newArrayList();
     
     public Restaurant() {

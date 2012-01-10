@@ -84,9 +84,10 @@ public class OrderController extends Controller {
     public static void createNewOrder(@Valid @Required final Restaurant restaurant, @Valid @Required final Dish dish,@Required @As("HH:mm") final Date date) throws ParseException{
         final User user =  Security.connected();
         Date theDate = date;
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
         if (date != null) {
             theDate = todayize(date);
-            validation.future("date", (Object) theDate);
+            validation.future("date", theDate, c.getTime());
         }
         final DeliveryOrder order = new DeliveryOrder(new DueDateExpirationPolicy(theDate), restaurant);
         final DishOrder dishOrder = new DishOrder(user, dish);
