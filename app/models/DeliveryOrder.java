@@ -66,7 +66,14 @@ public class DeliveryOrder extends Model {
 
     public DeliveryOrderResult close() {
         expired = true;
-        Collection<User> allUsers = Collections2.transform(dishOrders, new Function<DishOrder, User>() {
+        Collection<DishOrder> dishes = Collections2.filter(dishOrders, new Predicate<DishOrder>() {
+
+            @Override
+            public boolean apply(final DishOrder arg0) {
+                return arg0.dishes.size() > 0;
+            }
+        });
+        Collection<User> allUsers = Collections2.transform(dishes, new Function<DishOrder, User>() {
 
             @Override
             public User apply(final DishOrder input) {
@@ -74,7 +81,7 @@ public class DeliveryOrder extends Model {
             }
         });
         BigDecimal total = BigDecimal.ZERO;
-        for (DishOrder dishOrder : dishOrders) {
+        for (DishOrder dishOrder : dishes) {
             for (DishChildOrder dish : dishOrder.dishes) {
                 total = total.add(dish.dish.price);
             }
