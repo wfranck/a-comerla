@@ -1,6 +1,7 @@
 package controllers;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,6 @@ import models.DishOrder;
 import models.DueDateExpirationPolicy;
 import models.Restaurant;
 import models.User;
-import play.data.binding.As;
 import play.data.validation.Error;
 import play.data.validation.Required;
 import play.data.validation.Valid;
@@ -81,7 +81,15 @@ public class OrderController extends Controller {
 
 
 
-    public static void createNewOrder(@Valid @Required final Restaurant restaurant, @Valid @Required final Dish dish,@Required @As(lang = "es_AR", value = "HH:mm") final Date date) throws ParseException{
+    public static void createNewOrder(@Valid @Required final Restaurant restaurant, @Valid @Required final Dish dish,@Required  final String dateString) throws ParseException{
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+        df.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+        Date date = null;
+        try {
+            date = df.parse(dateString);
+        } catch (ParseException ex) {
+            validation.addError("date", "validation.future");
+        }
         final User user =  Security.connected();
         Date theDate = date;
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
