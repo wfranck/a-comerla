@@ -72,7 +72,6 @@ public class DishOrder extends Model {
             }
         });
         dishes.remove(theDish);
-        theDish.delete();
     }
 
     public boolean isEmpty() {
