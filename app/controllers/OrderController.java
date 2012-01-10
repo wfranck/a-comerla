@@ -33,11 +33,13 @@ public class OrderController extends Controller {
     public static void createForRestaurant(final Long id) {
         Restaurant r= Restaurant.findById(id);
         List<Restaurant> dishes = Dish.findByRestaurant(r);
+        notFoundIfNull(r);
         render(r, dishes);
     }
     
     public static void addToOrder(final Long id) {
         DeliveryOrder order = DeliveryOrder.findById(id);
+        notFoundIfNull(order);
         List<Restaurant> dishes = Dish.findByRestaurant(order.restaurant);
         render(order, dishes);
     }
