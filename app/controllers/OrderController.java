@@ -160,7 +160,6 @@ public class OrderController extends Controller {
         dishOrder.removeDish(dish);
         if (dishOrder.isEmpty()) {
             dishOrder.order.dishOrders.remove(dishOrder);
-            dishOrder.delete();
         }
         dishOrder.order.validateAndSave();
         index();
