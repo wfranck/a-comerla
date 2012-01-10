@@ -99,11 +99,17 @@ public class DeliveryOrder extends Model {
     }
 
     public boolean hasPeople() {
-        boolean hasPeople = false;
+        return orderCount() > 0;
+    }
+    
+    public int orderCount() {
+        int count = 0;
         for(DishOrder o : dishOrders) {
-            hasPeople |= o.dishes.size() > 0;
+            if (o.dishes.size() > 0) {
+                count++;
+            }
         }
-        return hasPeople;
+        return count;
     }
 
     public void expire() {

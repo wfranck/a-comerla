@@ -53,7 +53,7 @@
 	                        <h3>${order.restaurant.name}</h3>
 	                        <h4>${order.expirationPolicy.expirationDate.format('HH:mm', 'GMT-3')}</h4>
 	                        <p class="pedidos">
-	                            ${order.dishOrders.size()}
+	                            ${order.orderCount()}
 	                        </p>
 	                        <a class="btn" href="@{OrderController.addToOrder(order.id)}">Sumarme</a>
 	                    </li>
