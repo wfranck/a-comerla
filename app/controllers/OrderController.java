@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import models.DeliveryOrder;
 import models.Dish;
@@ -119,8 +120,8 @@ public class OrderController extends Controller {
     }
 
     private static Date todayize(final Date date) {
-        Calendar c = Calendar.getInstance();
-        Calendar cDate = Calendar.getInstance();
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
+        Calendar cDate = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
         cDate.setTime(date);
         c.set(Calendar.HOUR, cDate.get(Calendar.HOUR));
         c.set(Calendar.MINUTE, cDate.get(Calendar.MINUTE));
