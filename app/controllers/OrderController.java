@@ -19,9 +19,8 @@ import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;
-import controllers.securesocial.SecureSocial;
-@With(value = {SideBarController.class, SecureSocial.class})
-//@With(value = {SideBarController.class})
+//@With(value = {SideBarController.class, SecureSocial.class})
+@With(value = {SideBarController.class})
 public class OrderController extends Controller {
     
 
@@ -47,6 +46,7 @@ public class OrderController extends Controller {
         Dish dish = Dish.findById(dishId);
         notFoundIfNull(r);
         notFoundIfNull(dish);
+        validateDishAndRestaurant(r, dish);
         render(r, dish);
     }
     
@@ -55,6 +55,7 @@ public class OrderController extends Controller {
         Dish dish = Dish.findById(dishId);
         notFoundIfNull(order);
         notFoundIfNull(dish);
+        validateDishAndRestaurant(order.restaurant, dish);
         render(order, dish);
     }
     
@@ -84,6 +85,7 @@ public class OrderController extends Controller {
     public static void createNewOrder(@Valid @Required final Restaurant restaurant, @Valid @Required final Dish dish,@Required  final String date) throws ParseException{
         Date theDate = parseDate(date);
         final User user =  Security.connected();
+        validateDishAndRestaurant(restaurant, dish);
         theDate = validateDate(theDate);
         final DeliveryOrder order = new DeliveryOrder(new DueDateExpirationPolicy(theDate), restaurant);
         final DishOrder dishOrder = new DishOrder(user, dish);
@@ -97,6 +99,16 @@ public class OrderController extends Controller {
         order.validateAndCreate();
         index();
 
+    }
+
+    /**
+     * @param restaurant
+     * @param dish
+     */
+    private static void validateDishAndRestaurant(final Restaurant restaurant, final Dish dish) {
+        if (!dish.restaurant.id.equals(restaurant.id)) {
+            notFound();
+        }
     }
 
     /**
