@@ -41,7 +41,7 @@
                         <li>
                             <h3>${dish.dish.name}</h3>
                             <h4>Pedido en: ${dish.dish.restaurant.name}</h4>
-                            <a class="btn" href="@{OrderController.deleteDish(dish.dishOrder.id)}">Borrar</a>
+                            <a class="btn" href="@{OrderController.deleteDish(dish.dishOrder.id, dish.dish.id)}">Borrar</a>
                         </li>
                         #{/}
                     </ul>

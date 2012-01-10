@@ -14,6 +14,7 @@ POST /order/add-dish                                       OrderController.addNe
 POST /dish/create                                          OrderController.createDish
 GET /restaurant/new                                        RestaurantController.newRestaurant
 POST /restaurant/create                                        RestaurantController.create
+GET /dishorder/{dishOrderId}/dish/{dishId}/delete              OrderController.deleteDish
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

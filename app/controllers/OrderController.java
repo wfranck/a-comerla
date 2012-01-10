@@ -138,11 +138,17 @@ public class OrderController extends Controller {
         return theDate;
     }
     
-    public static void deleteDish(final Long dishOrderId) {
+    public static void deleteDish(final Long dishOrderId,
+            final Long dishId) {
         DishOrder dishOrder = DishOrder.findById(dishOrderId);
+        Dish dish = Dish.findById(dishId);
+        notFoundIfNull(dish);
         notFoundIfNull(dishOrder);
-        dishOrder.order.dishOrders.remove(dishOrder);
-        dishOrder.delete();
+        dishOrder.removeDish(dish);
+        if (dishOrder.isEmpty()) {
+            dishOrder.order.dishOrders.remove(dishOrder);
+            dishOrder.delete();
+        }
         dishOrder.order.validateAndSave();
         index();
     }
