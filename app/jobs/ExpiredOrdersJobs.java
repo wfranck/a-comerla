@@ -21,9 +21,14 @@ public class ExpiredOrdersJobs extends Job<Void> {
         List<DeliveryOrder> findExpiringOrders = DeliveryOrder.findExpiringOrders(
                 DateUtils.addMinutes(date, -1), date);
         for(DeliveryOrder order: findExpiringOrders) {
-            DeliveryOrderResult close = order.close();
-            order.validateAndSave();
-            Mails.sendOrder(close);
+            if (order.hasPeople()) {
+                DeliveryOrderResult close = order.close();
+                order.validateAndSave();
+                Mails.sendOrder(close);
+            } else {
+                order.expire();
+                order.validateAndSave();
+            }
         }
     }
 

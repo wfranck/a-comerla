@@ -31,19 +31,32 @@
         <div class="container">
         <div class="row">
 		    <div class="span4 ticker">
-		        <h2 class="underline">Pedidos actuales</h2>
-		        <ul>
-		            #{list items:orders, as:'order'}
-		            <li>
-		                <h3>${order.restaurant.name}</h3>
-		                <h4>${order.expirationPolicy.expirationDate.format('hh:mm')}</h4>
-		                <p class="pedidos">
-		                    ${order.dishOrders.size()}
-		                </p>
-		                <a class="btn">Sumarme</a>
-		            </li>
-		            #{/}
-		        </ul>
+		        #{if showMine}
+		        <h2 class="underline">Mis pedidos</h2>
+                    <ul>
+                        #{list items:dishes, as:'dish'}
+                        <li>
+                            <h3>${dish.dish.name}</h3>
+                            <h4>Pedido en: ${dish.dish.restaurant.name}</h4>
+                            <a class="btn" href="@{OrderController.deleteDish(dish.dishOrder.id)}">Borrar</a>
+                        </li>
+                        #{/}
+                    </ul>
+		        #{/}
+			        <h2 class="underline">Pedidos actuales</h2>
+	                <ul>
+	                    #{list items:orders, as:'order'}
+	                    <li>
+	                        <h3>${order.restaurant.name}</h3>
+	                        <h4>${order.expirationPolicy.expirationDate.format('HH:mm')}</h4>
+	                        <p class="pedidos">
+	                            ${order.dishOrders.size()}
+	                        </p>
+	                        <a class="btn" href="@{OrderController.addToOrder(order.id)}">Sumarme</a>
+	                    </li>
+	                </ul>
+		        #{/}
+		        
 		    </div>
             #{doLayout /}
        </div>

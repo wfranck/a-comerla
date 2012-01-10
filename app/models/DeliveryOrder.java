@@ -92,5 +92,13 @@ public class DeliveryOrder extends Model {
 
     }
 
+    public boolean hasPeople() {
+        return !dishOrders.isEmpty();
+    }
+
+    public void expire() {
+        expired = true;
+    }
+
 
 }

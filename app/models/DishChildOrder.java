@@ -14,9 +14,15 @@ public class DishChildOrder extends Model {
     @JoinColumn(name = "DishId")
     @Required
     public Dish dish;
+    
+    @ManyToOne
+    @Required
+    @JoinColumn(name = "DishOrderId")
+    public DishOrder dishOrder;
 
-    public DishChildOrder(final Dish dish) {
+    public DishChildOrder(final Dish dish, final DishOrder dishOrder) {
         this.dish = dish;
+        this.dishOrder = dishOrder;
     }
 
 

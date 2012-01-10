@@ -4,7 +4,7 @@
 
 <div class="span12 relative">
 	<h2 class="underline">Elegí el restaurant</h2>
-	<a class="btn agregar-plato">Agregar restaurant</a>
+	<a class="btn agregar-plato" href="@{RestaurantController.newRestaurant()}">Agregar restaurant</a>
 	<div class="row top">
 		#{list items:restaurants, as:'restaurant'}
 		<div class="span4 local linkeable">

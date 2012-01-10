@@ -1,0 +1,38 @@
+#{greenscript.js 'crear-pedido' /}
+%{
+    if(_new) {
+        r = _obj;
+    } else {
+        r= _obj.restaurant;
+    }
+}%
+                <div class="span12 relative">
+                    <h2 class="underline">Ultimo paso</h2>
+                    #{if _new}
+                        <form method="POST" action="@{OrderController.createNewOrder()}">
+                    #{/}
+                    #{else}
+                        <form method="POST" action="@{OrderController.addNewDishOrder()}">
+                    #{/}
+                    
+                    <input type="hidden" name="restaurant.id" value="${r.id}">
+                    <input type="hidden" name="dish.id" value="${_dish.id}">
+                    #{if _new}
+					
+					    #{field 'date'}
+					        
+					        <div class="clearfix #{ifError field.name}error#{/ifError}">
+					          <label for="${field.name}">Fecha de expiracion</label>
+					          <div class="input">
+					              <input class="xlarge date" type="text" id="${field.id}" name="${field.name}" value="${field.flash}" />
+					              <span class="help-inline">${field.error}</span>
+					            </div>
+					        </div>
+					    #{/}
+					#{/if}
+					#{else}
+					    <input type="hidden" name="order.id" value="${_obj.id}">
+					#{/else}
+					<input type="submit" class="btn primary" value="Finalizar pedido" />
+                    </form>
+                </div>

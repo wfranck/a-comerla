@@ -20,6 +20,11 @@ public class Dish extends Model {
     @Required
     @MaxSize(value = ModelConstants.DISH_DESCRIPTION_LENGTH)
     public String description;
+    
+    @Column(name = "Name", nullable = false, length = ModelConstants.DISH_NAME_LENGTH )
+    @Required
+    @MaxSize(value = ModelConstants.DISH_NAME_LENGTH )
+    public String name;
 
     @Column(name = "Price")
     @Required

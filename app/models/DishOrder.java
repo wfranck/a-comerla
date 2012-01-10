@@ -38,7 +38,7 @@ public class DishOrder extends Model {
     public DishOrder(final User user, final Dish... dishes) {
         this.user = user;
         for(Dish dish : dishes) {
-            this.dishes.add(new DishChildOrder(dish));
+            this.dishes.add(new DishChildOrder(dish, this));
         }
     }
 
@@ -51,6 +51,10 @@ public class DishOrder extends Model {
 
     public static DishOrder findExistent(final DeliveryOrder order, final User user) {
         return DishOrder.find("order = ? and user = ?", order, user).first();
+    }
+
+    public static List<DishChildOrder> findForUser(final User u) {
+        return DishChildOrder.find("select ds from DishOrder do inner join do.dishes ds where do.user = ?", u).fetch();
     }
 
 }

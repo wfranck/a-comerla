@@ -1,16 +1,5 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-#{messagesForJs/orderMessages /}
-
-<h2>Crea tu orden para ${r.name}</h2>
-<form  method="POST" action="@{OrderController.createNewOrder()}" class="form-stacked">
-    <fieldset>
-        #{add-order new:true, obj: r, dishes: dishes /}    
-    </fieldset>
-    <div class="actions">
-          <button type="submit" class="btn primary sender">Dar de alta el pedido</button>
-   </div>
-</form>
-
+#{add-order new:true, obj: r, dishes: dishes /}
 

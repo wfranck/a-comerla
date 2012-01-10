@@ -1,0 +1,54 @@
+#{extends 'main.html' /}
+#{set title:'Nuevo restaurant' /}
+#{greenscript.js 'dynamic-fields'/}
+#{add-image index: 0, template:true /}
+
+
+<div class="span12 relative">
+    <h2 class="underline">Crea tu plato</h2>
+    <form  method="POST" action="@{RestaurantController.addDish()}" class="span8" enctype="multipart/form-data">
+    <fieldset>
+        #{list items:r.images, as:'i'}
+            <div class="thumb">
+                <img src="@{RestaurantController.image(i.id)}" />
+            </div>
+        #{/}
+        #{field 'dish.name'}
+        
+        <div class="clearfix #{ifError field.name}error#{/ifError}">
+          <label for="${field.name}">Nombre del plato</label>
+          <div class="input">
+              <input class="xlarge" type="text" id="${field.id}" name="${field.name}" value="${field.flash}" >
+              <span class="help-inline">${field.error}</span>
+            </div>
+        </div>
+        #{/}
+        #{field 'dish.description'}
+        <div class="clearfix #{ifError field.name}error#{/ifError}">
+          <label for="${field.name}">Descripcion del plato</label>
+          <div class="input">
+              <input class="xlarge" type="text" id="${field.id}" name="${field.name}" value="${field.flash}" >
+              <span class="help-inline">${field.error}</span>
+            </div>
+        </div>
+        #{/}
+        #{field 'dish.price'}
+        <div class="clearfix #{ifError field.name}error#{/ifError}">
+          <label for="${field.name}">Precio</label>
+          <div class="input">
+              <input class="xlarge" type="text" id="${field.id}" name="${field.name}" value="${field.flash}" >
+              <span class="help-inline">${field.error}</span>
+            </div>
+        </div>
+        #{/}
+        <input type="hidden" name="isNew" value="${isNew}" />
+        <input type="hidden" name="orderId" value="${orderId}" />
+        <input type="hidden" name="dish.restaurant.id" value="${restaurantId}" />
+    </fieldset>
+    <div class="actions">
+          <button type="submit" class="btn primary sender">Save changes</button>
+   </div>
+</form>    
+</div>
+</div>
+

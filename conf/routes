@@ -5,6 +5,9 @@
 # Home page
 GET  /                                       OrderController.index
 GET  /order-restaurant/mew/{id}                                  OrderController.createForRestaurant
+GET /order-restaurant/new/{restaurantId}/dish/{dishId}         OrderController.newOrder
+GET /order/{orderId}/dish/{dishId}                         OrderController.addToExistentOrder
+GET /restaurant/{restaurantId}/status/{isNew}/dish/new       RestaurantController.newDish
 GET /order/{id}                                       OrderController.addToOrder
 POST /order/create                                       OrderController.createNewOrder
 POST /order/add-dish                                       OrderController.addNewDishOrder

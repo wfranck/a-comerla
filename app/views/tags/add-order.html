@@ -1,8 +1,4 @@
-#{greenscript.js "crear-pedido"/}
-<script>
-    var createDish = #{jsAction @OrderController.createDish(':description', ':price', ':restaurant') /}
-</script>
-
+#{greenscript.js 'linkify-divs' /}
 %{
     if(_new) {
         r = _obj;
@@ -10,62 +6,34 @@
         r= _obj.restaurant;
     }
 }%
-<input type="hidden" class="restaurant" name="restaurant.id" value="${r.id}">
-#{if _new}
 
-    #{field 'date'}
-        
-        <div class="clearfix #{ifError field.name}error#{/ifError}">
-          <label for="${field.name}">Fecha de expiracion</label>
-          <div class="input">
-              <input class="xlarge date" type="text" id="${field.id}" name="${field.name}" value="${field.flash}" >
-              <span class="help-inline">${field.error}</span>
-            </div>
-        </div>
-    #{/}
-#{/if}
-#{else}
-    <input type="hidden" name="order.id" value="${_obj.id}">
-#{/else}
-    <div class="row">
-        <div class="span6">
-            <h3>Si tu plato ya fue cargado, elegilo aca!</h3>
-            #{field 'dish.id'}
-		    <div class="clearfix #{ifError field.name}error#{/ifError}">
-	            <label for="${field.name}">Plato</label>
-	            <div class="input">
-	              #{select field.name, items:_dishes, valueProperty:'id', id: field.id, class: 'dishes' /}
-	              <span class="help-inline">${field.error}</span>
-	            </div>
-            </div>
-		    #{/}
-        </div>
-        <div class="span6">
-            <h3>Si tu plato no esta, primero mira las imagenes del menu y luego cargalo!</h3>
-            #{list items:r.images, as:'image'}
-		        <img class="thumbnail" src="@{RestaurantController.image(image.id)}" />
-		   #{/list}
-		   
-
-			<div id="newDish">
-			     <div class="clearfix">
-			          <label for="Dishname">Nombre del plato</label>
-			          <div class="input">
-			              <input class="xlarge description" type="text" id="dishName" name="dishName" value="" >
-			            </div>
-			        </div>
-				     <div class="clearfix">
-				       <label for="Dishname">Precio del plato</label>
-				       <div class="input">
-				           <input class="xlarge price" type="text" id="dishPrice" name="dishPrice" value="" >
-				         </div>
-				     </div>
-			    
-			        <input class="addDish btn primary" type="button" value="add"/>
-			</div>
-
-
-		   
-		                
-        </div>
-    </div>
+<!-- Contenido -->
+                <div class="span12 relative">
+                    <h2 class="underline">${r.name}</h2>
+                    #{if _new}
+                        <a class="btn agregar-plato" href="@{RestaurantController.newDish(true, null, r.id)}">Agregar plato</a>
+                    #{/}
+                    #{else}
+                        <a class="btn agregar-plato" href="@{RestaurantController.newDish(false, _obj.id, r.id)}">Agregar plato</a>
+                    #{/}
+                    <ul>
+                       #{list items:_dishes, as:'dish'}
+                        <div class="plato linkeable">
+                            #{if _new}
+                                <p class="url hidden">@{OrderController.newOrder(r.id, dish.id)}</p>
+                            #{/}
+                            #{else}
+                                <p class="url hidden">@{OrderController.addToExistentOrder(_obj.id, dish.id)}</p>
+                            #{/}
+                            <h2>${dish.name}</h2>
+                            <p>
+                                ${dish.description}
+                            </p>
+                            <p class="precio">
+                                $${dish.price}
+                            </p>
+                            <a class="actualizar-precio" href="#">Actualizar</a>
+                        </div>
+                        #{/list}
+                    </ul>
+                </div>

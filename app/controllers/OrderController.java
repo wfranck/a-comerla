@@ -1,7 +1,7 @@
 package controllers;
 
-import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -14,15 +14,13 @@ import models.Restaurant;
 import models.User;
 import play.data.binding.As;
 import play.data.validation.Error;
-import play.data.validation.InFuture;
 import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.mvc.Before;
 import play.mvc.Controller;
-import play.mvc.Http.StatusCode;
-import serializers.DishSerializer;
-import serializers.Serializer;
-
+import play.mvc.With;
+import controllers.securesocial.SecureSocial;
+@With(value = {SideBarController.class, SecureSocial.class})
 public class OrderController extends Controller {
     
     @Before
@@ -41,12 +39,30 @@ public class OrderController extends Controller {
         List<Restaurant> dishes = Dish.findByRestaurant(r);
         render(r, dishes);
     }
-
+    
     public static void addToOrder(final Long id) {
         DeliveryOrder order = DeliveryOrder.findById(id);
         List<Restaurant> dishes = Dish.findByRestaurant(order.restaurant);
         render(order, dishes);
     }
+    
+    public static void newOrder(final Long restaurantId, final Long dishId) {
+        Restaurant r = Restaurant.findById(restaurantId);
+        Dish dish = Dish.findById(dishId);
+        notFoundIfNull(r);
+        notFoundIfNull(dish);
+        render(r, dish);
+    }
+    
+    public static void addToExistentOrder(final Long orderId, final Long dishId) {
+        DeliveryOrder order = DeliveryOrder.findById(orderId);
+        Dish dish = Dish.findById(dishId);
+        notFoundIfNull(order);
+        notFoundIfNull(dish);
+        render(order, dish);
+    }
+    
+    
 
     public static void addNewDishOrder(@Valid final DeliveryOrder order, @Valid final Dish dish) {
         final User user =  Security.connected();
@@ -55,7 +71,8 @@ public class OrderController extends Controller {
             dishOrder = new DishOrder(user, dish);
             order.addDishOrder(new DishOrder(user, dish));
         } else {
-            dishOrder.dishes.add(new DishChildOrder(dish));
+            dishOrder.dishes.add(new DishChildOrder(dish, dishOrder));
+            dishOrder.validateAndSave();
         }
         if (!order.validateAndSave()) {
             validation.keep();
@@ -68,9 +85,14 @@ public class OrderController extends Controller {
 
 
 
-    public static void createNewOrder(@Valid @Required final Restaurant restaurant, @Valid @Required final Dish dish,@Required @InFuture   @As("dd/MM/yy HH:mm") final Date date) throws ParseException{
+    public static void createNewOrder(@Valid @Required final Restaurant restaurant, @Valid @Required final Dish dish,@Required @As("HH:mm") final Date date) throws ParseException{
         final User user =  Security.connected();
-        final DeliveryOrder order = new DeliveryOrder(new DueDateExpirationPolicy(date), restaurant);
+        Date theDate = date;
+        if (date != null) {
+            theDate = todayize(date);
+            validation.future("date", (Object) theDate);
+        }
+        final DeliveryOrder order = new DeliveryOrder(new DueDateExpirationPolicy(theDate), restaurant);
         final DishOrder dishOrder = new DishOrder(user, dish);
         order.addDishOrder(dishOrder);
         if (validation.hasErrors()) {
@@ -80,33 +102,30 @@ public class OrderController extends Controller {
                 validation.addError("dish.id", error.message());
             }
             params.flash();
-            createForRestaurant(restaurant.getId());
+            newOrder(restaurant.id, dish.id);
         }
         order.validateAndCreate();
         index();
 
     }
-
-    /**
-     * Creates a new Dish
-     * @param description
-     * @param price
-     * @param restaurant
-     */
-    public static void createDish(final String description, final BigDecimal price, final Long restaurant) {
-        final Serializer serializer = new DishSerializer();
-
-        final Restaurant r = Restaurant.findById(restaurant);
-        final Dish dish = new Dish(description,price,r);
-
-        if(validation.valid(dish).ok){
-            response.status = StatusCode.CREATED;
-            r.save();
-
-            renderJSON(serializer.serialize(dish));
-        }
-        else{
-            response.status = StatusCode.BAD_REQUEST;
-        }
+    
+    public static void deleteDish(final Long dishOrderId) {
+        DishOrder dishOrder = DishOrder.findById(dishOrderId);
+        notFoundIfNull(dishOrder);
+        dishOrder.order.dishOrders.remove(dishOrder);
+        dishOrder.delete();
+        dishOrder.order.validateAndSave();
+        index();
     }
+
+    private static Date todayize(final Date date) {
+        Calendar c = Calendar.getInstance();
+        Calendar cDate = Calendar.getInstance();
+        cDate.setTime(date);
+        c.set(Calendar.HOUR, cDate.get(Calendar.HOUR));
+        c.set(Calendar.MINUTE, cDate.get(Calendar.MINUTE));
+        c.set(Calendar.AM_PM, cDate.get(Calendar.AM_PM));
+        return c.getTime();
+    }
+
 }
