@@ -82,14 +82,7 @@ public class OrderController extends Controller {
 
 
     public static void createNewOrder(@Valid @Required final Restaurant restaurant, @Valid @Required final Dish dish,@Required  final String date) throws ParseException{
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
-        df.setTimeZone(TimeZone.getTimeZone("GMT-3"));
-        Date theDate = null;
-        try {
-            theDate = df.parse(date);
-        } catch (ParseException ex) {
-            validation.addError("date", "validation.future");
-        }
+        Date theDate = parseDate(date);
         final User user =  Security.connected();
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
         if (theDate != null) {
@@ -111,6 +104,22 @@ public class OrderController extends Controller {
         order.validateAndCreate();
         index();
 
+    }
+
+    /**
+     * @param date
+     * @return
+     */
+    private static Date parseDate(final String date) {
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+        df.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+        Date theDate = null;
+        try {
+            theDate = df.parse(date);
+        } catch (ParseException ex) {
+            validation.addError("date", "validation.future");
+        }
+        return theDate;
     }
     
     public static void deleteDish(final Long dishOrderId) {
