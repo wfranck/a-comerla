@@ -19,8 +19,9 @@ import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;
-//@With(value = {SideBarController.class, SecureSocial.class})
-@With(value = {SideBarController.class})
+import controllers.securesocial.SecureSocial;
+@With(value = {SideBarController.class, SecureSocial.class})
+//@With(value = {SideBarController.class})
 public class OrderController extends Controller {
     
 
