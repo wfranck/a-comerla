@@ -21,7 +21,9 @@ import play.data.validation.Valid;
 import play.db.jpa.Model;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
 
 @Entity
 public class DeliveryOrder extends Model {
@@ -57,9 +59,9 @@ public class DeliveryOrder extends Model {
         order.setOrder(this);
     }
 
-
     public static List<DeliveryOrder> findExpiringOrders(final Date start, final Date end) {
-        return find("expired = false and expirationPolicy.expirationDate between ? and ?", start,end).<DeliveryOrder>fetch();
+        return find("expired = false and expirationPolicy.expirationDate between ? and ?", start, end)
+                .<DeliveryOrder> fetch();
     }
 
     public DeliveryOrderResult close() {
@@ -72,8 +74,8 @@ public class DeliveryOrder extends Model {
             }
         });
         BigDecimal total = BigDecimal.ZERO;
-        for(DishOrder dishOrder : dishOrders) {
-            for(DishChildOrder dish : dishOrder.dishes) {
+        for (DishOrder dishOrder : dishOrders) {
+            for (DishChildOrder dish : dishOrder.dishes) {
                 total = total.add(dish.dish.price);
             }
         }
@@ -92,13 +94,42 @@ public class DeliveryOrder extends Model {
 
     }
 
+    public static DeliveryOrder findByDishOrderId(final Long dishOrderId) {
+        return find("select do.order from DishOrder do where do.id = ?", dishOrderId).first();
+    }
+
     public boolean hasPeople() {
-        return !dishOrders.isEmpty();
+        boolean hasPeople = false;
+        for(DishOrder o : dishOrders) {
+            hasPeople |= o.dishes.size() > 0;
+        }
+        return hasPeople;
     }
 
     public void expire() {
         expired = true;
     }
 
+    public void remove(final DishOrder dishOrder, final Dish dish) {
+        DishOrder found = Iterables.find(dishOrders, new Predicate<DishOrder>() {
+
+            @Override
+            public boolean apply(final DishOrder arg0) {
+                return arg0.id.equals(dishOrder.id);
+            }
+        });
+        DishChildOrder dishOrderChild = Iterables.find(found.dishes, new Predicate<DishChildOrder>() {
+
+            @Override
+            public boolean apply(final DishChildOrder arg0) {
+                return arg0.dish.id.equals(dish.id);
+            }
+        });
+        if (dishOrder.dishes.size() <= 1) {
+            found.dishes.remove(dishOrderChild);
+        } else {
+            found.dishes.remove(dishOrderChild);
+        }
+    }
 
 }

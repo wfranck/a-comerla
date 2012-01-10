@@ -19,9 +19,8 @@ import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;
-import controllers.securesocial.SecureSocial;
-@With(value = {SideBarController.class, SecureSocial.class})
-//@With(value = {SideBarController.class})
+//@With(value = {SideBarController.class, SecureSocial.class})
+@With(value = {SideBarController.class})
 public class OrderController extends Controller {
     
 
@@ -153,16 +152,18 @@ public class OrderController extends Controller {
     
     public static void deleteDish(final Long dishOrderId,
             final Long dishId) {
+        DeliveryOrder order = DeliveryOrder.findByDishOrderId(dishOrderId);
         DishOrder dishOrder = DishOrder.findById(dishOrderId);
         Dish dish = Dish.findById(dishId);
-        notFoundIfNull(dish);
-        notFoundIfNull(dishOrder);
-        dishOrder.removeDish(dish);
-        if (dishOrder.isEmpty()) {
-            dishOrder.order.dishOrders.remove(dishOrder);
+        if (!dishOrder.user.id.equals(Security.connected().id)) {
+            notFound();
         }
-        dishOrder.order.validateAndSave();
-        index();
+        notFoundIfNull(order);
+        notFoundIfNull(dishOrder);
+        notFoundIfNull(dish);
+        order.remove(dishOrder, dish);
+        order.save();
+        OrderController.index();
     }
 
     private static Date todayize(final Date date) {

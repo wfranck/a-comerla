@@ -16,9 +16,6 @@ import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-
 @Entity
 public class DishOrder extends Model {
 
@@ -61,21 +58,6 @@ public class DishOrder extends Model {
     public static List<DishChildOrder> findForUser(final User u) {
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
         return DishChildOrder.find("select ds from DishOrder do inner join do.dishes ds where do.user = ? and do.order.expired = false and do.order.expirationPolicy.expirationDate > ?", u, c.getTime()).fetch();
-    }
-
-    public void removeDish(final Dish dish) {
-        DishChildOrder theDish = Iterables.find(dishes, new Predicate<DishChildOrder>() {
-
-            @Override
-            public boolean apply(final DishChildOrder arg0) {
-                return dish.id.equals(arg0.dish.id);
-            }
-        });
-        dishes.remove(theDish);
-    }
-
-    public boolean isEmpty() {
-        return dishes.isEmpty();
     }
 
 }
