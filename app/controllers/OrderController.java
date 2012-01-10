@@ -81,20 +81,19 @@ public class OrderController extends Controller {
 
 
 
-    public static void createNewOrder(@Valid @Required final Restaurant restaurant, @Valid @Required final Dish dish,@Required  final String dateString) throws ParseException{
+    public static void createNewOrder(@Valid @Required final Restaurant restaurant, @Valid @Required final Dish dish,@Required  final String date) throws ParseException{
         SimpleDateFormat df = new SimpleDateFormat("HH:mm");
         df.setTimeZone(TimeZone.getTimeZone("GMT-3"));
-        Date date = null;
+        Date theDate = null;
         try {
-            date = df.parse(dateString);
+            theDate = df.parse(date);
         } catch (ParseException ex) {
             validation.addError("date", "validation.future");
         }
         final User user =  Security.connected();
-        Date theDate = date;
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
-        if (date != null) {
-            theDate = todayize(date);
+        if (theDate != null) {
+            theDate = todayize(theDate);
             validation.future("date", theDate, c.getTime());
         }
         final DeliveryOrder order = new DeliveryOrder(new DueDateExpirationPolicy(theDate), restaurant);
