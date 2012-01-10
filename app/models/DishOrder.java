@@ -1,7 +1,9 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -54,7 +56,8 @@ public class DishOrder extends Model {
     }
 
     public static List<DishChildOrder> findForUser(final User u) {
-        return DishChildOrder.find("select ds from DishOrder do inner join do.dishes ds where do.user = ?", u).fetch();
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
+        return DishChildOrder.find("select ds from DishOrder do inner join do.dishes ds where do.user = ? and do.order.expired = false and do.order.expirationPolicy.expirationDate > ?", u, c.getTime()).fetch();
     }
 
 }

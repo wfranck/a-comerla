@@ -20,7 +20,7 @@ public class SideBarController extends Controller {
             boolean showMine = false;
             if (!dishes.isEmpty()) {
                 showMine = true;
-                renderArgs.put("dishes", dishes);
+                renderArgs.put("alldishes", dishes);
             }
             List<DeliveryOrder> orders = DeliveryOrder.find("expirationPolicy.expirationDate >= ?", new Date()).fetch();
             renderArgs.put("orders", orders);

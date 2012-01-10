@@ -11,6 +11,7 @@ public class Security {
             return null;
         }
         return UserSocialInformation.findByUserId(SecureSocial.getCurrentUser().id).user;
+//        return User.all().first();
     }
 
 }

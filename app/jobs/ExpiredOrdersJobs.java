@@ -1,7 +1,9 @@
 package jobs;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import models.DeliveryOrder;
 import models.DeliveryOrderResult;
@@ -17,18 +19,18 @@ public class ExpiredOrdersJobs extends Job<Void> {
 
     @Override
     public void doJob() throws Exception {
-        Date date = new Date();
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT-3"));
+        Date date = c.getTime();
         List<DeliveryOrder> findExpiringOrders = DeliveryOrder.findExpiringOrders(
                 DateUtils.addMinutes(date, -1), date);
         for(DeliveryOrder order: findExpiringOrders) {
             if (order.hasPeople()) {
                 DeliveryOrderResult close = order.close();
-                order.validateAndSave();
                 Mails.sendOrder(close);
             } else {
                 order.expire();
-                order.validateAndSave();
             }
+            order.validateAndSave();
         }
     }
 

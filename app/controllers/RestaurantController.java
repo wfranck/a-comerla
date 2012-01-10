@@ -11,6 +11,7 @@ import play.mvc.With;
 import controllers.securesocial.SecureSocial;
 
 @With(value = {SideBarController.class, SecureSocial.class})
+//@With(value = {SideBarController.class})
 public class RestaurantController extends Controller {
     
     public static void newRestaurant() {

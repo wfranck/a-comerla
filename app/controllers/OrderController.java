@@ -21,6 +21,7 @@ import play.mvc.Controller;
 import play.mvc.With;
 import controllers.securesocial.SecureSocial;
 @With(value = {SideBarController.class, SecureSocial.class})
+//@With(value = {SideBarController.class})
 public class OrderController extends Controller {
     
 

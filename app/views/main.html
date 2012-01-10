@@ -37,7 +37,7 @@
 		        #{if showMine}
 		        <h2 class="underline">Mis pedidos</h2>
                     <ul>
-                        #{list items:dishes, as:'dish'}
+                        #{list items:alldishes, as:'dish'}
                         <li>
                             <h3>${dish.dish.name}</h3>
                             <h4>Pedido en: ${dish.dish.restaurant.name}</h4>
