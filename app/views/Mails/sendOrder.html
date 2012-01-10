@@ -4,7 +4,6 @@
     <head>
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/play-pagination.css'}">
     </head>
     <body>
         <h1>&{'order-finished'}</h1>
@@ -15,16 +14,16 @@
                 <p>${dish.user.mail}  pidio</p>
                 <ul>
                 #{list items:dish.dishes, as:'plate'}
-                    <li>${plate.dish.description} que sale ${plate.dish.price}</li>
+                    <li>${plate.dish.name} que sale ${plate.dish.price}</li>
                 #{/}
                 </ul>
                 </li>           
            #{/}
         </ul>
         <h2>Llamador</h2>
-        <div>${result.caller.username}</div>
+        <div>${result.caller.mail}</div>
         <h2>El que paga</h2>
-        <div>${result.payer.username}</div>
+        <div>${result.payer.mail}</div>
         
         <h2>Total a pagar</h2>
         <div>${result.total}</div>
