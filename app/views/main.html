@@ -23,7 +23,10 @@
                 <div class="container">
                     <a class="brand" href="#">A comerla!</a>
                     <p class="pull-right">
-                        
+                        #{if user != null}
+                            Logged in as ${user.email}
+                        #{/}
+                                               
                     </p>
                 </div>
             </div>

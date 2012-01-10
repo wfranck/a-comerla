@@ -15,3 +15,5 @@ create.order.restaurant=Create order for %s
 order-mail-subject=La orden ha finalizado
 order-finished=La orden ha terminado
 securesocial.errorCreatingAccount=No se pueden crear cuentas que no sean de Zauber Labs
+securesocial.login=Log in
+securesocial.clickOnYourAccount=Hace click en el icono para hacer login con Google. Solo cuentas de ZauberLabs son soportadas
