@@ -8,6 +8,9 @@ import securesocial.provider.UserService.Service;
 
 public class AComerlaUserService implements Service {
 
+    private static final String ZAUBERLABS_COM = "@zauberlabs.com";
+    private static final String CUPOINT_COM = "@cupoint.com";
+
     @Override
     public SocialUser find(final UserId id) {
         UserSocialInformation u = UserSocialInformation.findByUserId(id);
@@ -19,9 +22,7 @@ public class AComerlaUserService implements Service {
 
     @Override
     public void save(final SocialUser user) {
-        if (!user.email.toLowerCase().endsWith("@zauberlabs.com")) {
-            throw new IllegalStateException("Solo mails de Zauberlabs");
-        }
+        checkDomain(user);
         UserSocialInformation usi = UserSocialInformation.findByUserId(user.id);
         if (usi != null) {
             usi.update(user);
@@ -37,6 +38,12 @@ public class AComerlaUserService implements Service {
         u.validateAndSave();
         
         
+    }
+
+    private void checkDomain(final SocialUser user) {
+        if (!(user.email.toLowerCase().endsWith(ZAUBERLABS_COM) || user.email.toLowerCase().endsWith(CUPOINT_COM))) {
+            throw new IllegalStateException("Solo mails de Zauberlabs");
+        }
     }
 
     @Override
