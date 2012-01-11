@@ -12,10 +12,8 @@ We didn't want Zauber employees to be forced to create users in order to use thi
 In order to use A comerla in your businesses, you'll need to update the application.conf file in the conf folder with the following data:
 
 1.  Put your SMTP mail information, so that the app can send emails. This can be changed in the __Mail configuration__ section.
-1.  Put the broadcast email address of your company in the  __prod.broadcast.mail__ 
-property. All new orders will be sent to this email.
-1.  Put the base URL in which the app will be deployed in the __Url-resolving in   
-Jobs__ section.
+1.  Put the broadcast email address of your company in the  __prod.broadcast.mail__ property. All new orders will be sent to this email.
+1.  Put the base URL in which the app will be deployed in the __Url-resolving in   Jobs__ section.
 1.  Put the database information in the __Database__ section.
 1.  Put the consumer key and secred of the google application that you have created and verified in the __Secure social__ section. This must be done in order to be able to have Google Login.
 
