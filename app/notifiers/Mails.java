@@ -22,7 +22,7 @@ public class Mails extends Mailer {
         setFrom("zaubertest.test@gmail.com");
         setSubject("[A-COMERLA] Nuevo pedido para " + order.restaurant.name + " vence a las "
                 + ExtendedJavaExtensions.format(order.expirationPolicy.expirationDate, "HH:mm", "GMT-3"));
-        addRecipient(Play.configuration.getProperty("broadcast.mail", "hq@zauberlabs.com"));
+        addRecipient(Play.configuration.getProperty("broadcast.mail"));
         send(order);
     }
 
