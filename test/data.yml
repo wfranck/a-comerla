@@ -32,8 +32,3 @@ Restaurant(lasCabras):
 Restaurant(laCeleste):
     name: La celeste
     telephone: 4888-5655
-
-Dish(comida):
-    description: Cazuela cabars
-    price: 4.0
-    restaurant: laCeleste

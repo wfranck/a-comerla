@@ -27,6 +27,7 @@ public class MailsTest extends UnitTest {
         order.dishOrders.add(new DishOrder(user, dish));
         DeliveryOrderResult close = order.close();
         Mails.sendOrder(close);
+        Mails.newOrder(order);
     }
 
 }
