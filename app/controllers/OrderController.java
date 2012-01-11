@@ -166,8 +166,11 @@ public class OrderController extends Controller {
         notFoundIfNull(order);
         notFoundIfNull(dishOrder);
         notFoundIfNull(dish);
-        order.remove(dishOrder, dish);
-        order.save();
+        if (order.remove(dishOrder, dish)) {
+            order.delete();
+        } else {
+            order.save();
+        }
         OrderController.index();
     }
 

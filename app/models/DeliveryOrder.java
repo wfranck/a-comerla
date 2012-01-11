@@ -123,7 +123,7 @@ public class DeliveryOrder extends Model {
         expired = true;
     }
 
-    public void remove(final DishOrder dishOrder, final Dish dish) {
+    public boolean remove(final DishOrder dishOrder, final Dish dish) {
         DishOrder found = Iterables.find(dishOrders, new Predicate<DishOrder>() {
 
             @Override
@@ -139,10 +139,11 @@ public class DeliveryOrder extends Model {
             }
         });
         if (dishOrder.dishes.size() <= 1) {
-            found.dishes.remove(dishOrderChild);
+            return true;
         } else {
             found.dishes.remove(dishOrderChild);
         }
+        return false;
     }
 
 }
