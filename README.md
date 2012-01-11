@@ -25,7 +25,7 @@ En los últimos Hackatons en Zauber Software estuvimos probando Play! Framework.
 
 ## ¿Cúal es la idea de A Comerla!?
 Nosotros todos los dias realizamos pedidos para almorzar. Es bastante complicado saber cuanto salen los platos, cúal es el total, quién se va a encargar de pedir, quién se va a encargar de juntar la plata y cuándo se realizará el pedido. 
-Para solucionar esta problemas, decidimos crear A Comerla.
+Para solucionar estos problemas, decidimos crear A Comerla.
 
 ## ¿Cómo funciona el Login?
 No queríamos que los empleados de Zauber tengan que crearse usuarios nuevamente. Aquí en Zauber usamos Google Apps para nuestros mails. Entonces, decidimos hacer el Login con Google.
