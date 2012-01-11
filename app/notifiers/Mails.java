@@ -19,7 +19,8 @@ public class Mails extends Mailer {
     
     public static void newOrder(final DeliveryOrder order) {
         setFrom("zaubertest.test@gmail.com");
-        setSubject(Play.configuration.getProperty("broadcast.mail", "hq@zauberlabs.com"));
+        setSubject("[A-COMERLA] Nuevo pedido para " + order.restaurant.name);
+        addRecipient(Play.configuration.getProperty("broadcast.mail", "hq@zauberlabs.com"));
         send(order);
     }
 
