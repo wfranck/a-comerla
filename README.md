@@ -37,4 +37,4 @@ Para poder utilizar A comerla en sus empresas, deberán actualizar el archivo ap
 1.  Cargar el mail de broadcast de la empresa, a la cual se enviaran los mails con pedidos nuevos. Dicha property es __prod.broadcast.mail__
 1.  Cargar la URL base de la aplicación donde esta deployeada en la sección __Url-resolving in Jobs__
 1.  Cargar los datos de la base de datos donde se guardará la información
-1.  Cargar los datos de consumer key y secret de la aplicación que hayan creada de Google para poder realizar el login. Esto se encuentra en la sección __Secure Social__
+1.  Cargar los datos de consumer key y secret de la aplicación que hayan creado de Google para poder realizar el login. Esto se encuentra en la sección __Secure Social__
