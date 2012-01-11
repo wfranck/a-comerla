@@ -14,6 +14,7 @@ import models.DishOrder;
 import models.DueDateExpirationPolicy;
 import models.Restaurant;
 import models.User;
+import notifiers.Mails;
 import play.data.validation.Error;
 import play.data.validation.Required;
 import play.data.validation.Valid;
@@ -100,6 +101,7 @@ public class OrderController extends Controller {
             newOrder(restaurant.id, dish.id);
         }
         order.validateAndCreate();
+        Mails.newOrder(order);
         index();
 
     }
