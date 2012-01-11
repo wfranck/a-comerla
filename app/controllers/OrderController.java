@@ -33,8 +33,8 @@ public class OrderController extends Controller {
 
     public static void createForRestaurant(final Long id) {
         Restaurant r= Restaurant.findById(id);
-        List<Restaurant> dishes = Dish.findByRestaurant(r);
         notFoundIfNull(r);
+        List<Restaurant> dishes = Dish.findByRestaurant(r);
         render(r, dishes);
     }
     
