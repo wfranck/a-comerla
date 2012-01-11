@@ -1,4 +1,28 @@
 # A Comerla!
+In the latest Hackatons at Zauber Software we decided to start testing Play! Framework. We thought that the best way to test it would be creating an application that we'd use here at Zauber every day.
+
+## What is A comerla!?
+Everyday we call a lot of restaurants in order to have our meal delivered to the office. Right now, It's very complicated for us to know how much each meal costs, which is the total of the order, who's going to call the restaurant, who's going to collect the money to pay and when the order will be placed. 
+So as to solve all of this problems, we created A Comerla!.
+
+## How does the login work?
+We didn't want Zauber employees to be forced to create users in order to use this app. As we use Google Apps for our emails, we decided to make the login work with Google.
+
+## How can I use this?
+In order to use A comerla in your businesses, you'll need to update the application.conf file in the conf folder with the following data:
+
+1.  Put your SMTP mail information, so that the app can send emails. This can be changed in the __Mail configuration__ section.
+1.  Put the broadcast email address of your company in the  __prod.broadcast.mail__ 
+property. All new orders will be sent to this email.
+1.  Put the base URL in which the app will be deployed in the __Url-resolving in   
+Jobs__ section.
+1.  Put the database information in the __Database__ section.
+1.  Put the consumer key and secred of the google application that you have created and verified in the __Secure social__ section. This must be done in order to be able to have Google Login.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# A Comerla!
 En los últimos Hackatons en Zauber Software estuvimos probando Play! Framework. Para probar este framework decidimos hacer una aplicación que vayasemos a usar todos los dias.
 
 ## ¿Cúal es la idea de A Comerla!?
