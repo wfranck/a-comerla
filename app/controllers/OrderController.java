@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import notifiers.Mails;
 import models.DeliveryOrder;
 import models.Dish;
 import models.DishChildOrder;
@@ -100,7 +101,7 @@ public class OrderController extends Controller {
             newOrder(restaurant.id, dish.id);
         }
         order.validateAndCreate();
-//        Mails.newOrder(order);
+        Mails.newOrder(order);
         index();
 
     }
